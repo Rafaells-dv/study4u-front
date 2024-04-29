@@ -1,0 +1,15 @@
+div[id="landpage"] {
+    height: 100%;
+}
+
+section[id="introduction"] {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+#classroom {
+    height: 500px;
+}

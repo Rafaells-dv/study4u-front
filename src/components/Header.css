@@ -1,0 +1,35 @@
+nav {
+    background-color: var(--dark-blue-2);
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    color: var(--blue-light);
+}
+
+div[id="nav-options"] > * >input {
+    background-color: var(--dark-blue-2);
+    padding: 0 1rem;
+    border-radius: 1rem;
+    border: none;
+    color: var(--blue-light);
+    cursor: pointer;
+}
+
+p[class="title"] {
+    font-size: 1rem;
+}
+
+input[value="Logar"]:hover {
+    background-color: var(--blue-light);
+    color: var(--dark-blue-2);
+}
+
+input[value="Cadastre-se"]:hover {
+    background-color: var(--blue-light);
+    color: var(--dark-blue-2);
+}
+
+input[value="Sobre"]:hover {
+    background-color: var(--blue-light);
+    color: var(--dark-blue-2);
+}

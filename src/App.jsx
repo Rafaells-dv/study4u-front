@@ -1,30 +1,14 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import './App.css';
+import Header from './components/Header';
 
 function App() {
 
   return (
-    <main>
-        <form>
-            <article className="title">
-                <p id="login-title">Study4U</p>
-                <p className="text">Comece a mudar o seu futuro.</p>
-            </article>
-            <div id="login-inputs">
-                <p className="title">Login</p>
-                <input className="text" type="email" name="email" placeholder="Email:"/>
-                <input className="text" type="password" name="password" placeholder="Senha:"/>
-                <input className="text" type="submit" value="Logar"/>
-                <div className="text">
-                    <a href="">Esqueceu sua senha?</a>
-                    <a href="">Cadastrar</a>
-                </div>
-            </div>
-        </form>
-    </main>
+    <div id="app">
+      <Header />
+    </div>
   )
 }
 
-export default App
+export default App;

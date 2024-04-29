@@ -42,7 +42,7 @@ body{
 
 /* Styling */
 
-body, html {
+body, html, div[id="root"] {
     background-color: var(--blue-light);
     height: 100%;
     width: 100%;
