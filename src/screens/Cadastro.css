@@ -1,0 +1,59 @@
+div[id="cadastro"] {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form[id="cadastro-form"] {
+    background-color: var(--white);
+    height: 50%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border-radius: 1rem;
+    align-items: center;
+}
+
+form[id="cadastro-form"] > p {
+    font-size: 2rem;
+    padding-top: 1rem;
+    color: var(--dark-blue-2);
+}
+
+form[id="cadastro-form"] > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+}
+
+div[id="cadastro-inputs"] > input {
+    background-color: var(--gray);
+    margin: 1rem;
+    padding: 0.9rem;
+    border-radius: 1rem;
+    border-style: none;
+}
+
+div[id="cadastro-inputs"] > input[type="submit"] {
+    width: 60%;
+    align-self: center;
+}
+
+input[name="name"]:focus {
+    outline: var(--blue-light) solid;
+    background-color: var(--white);
+}
+
+input[value="Cadastrar"] {
+    background-color: var(--dark-blue-2) !important;
+    color: var(--white) !important;
+    cursor: pointer;
+  }
+  
+input[value="Cadastrar"]:hover {
+    background-color: var(--dark-blue) !important;
+}
+
