@@ -1,8 +1,7 @@
 #sobre {
     display: flex;
     flex-direction: column;
-    align-self: self-start;
-    margin: 4rem 40rem 0 5rem;
+    margin: 0 15rem 5rem 15rem;
 }
 
 #sobre > h1 {
