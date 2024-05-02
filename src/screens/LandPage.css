@@ -1,7 +1,3 @@
-div[id="landpage"] {
-    height: 100%;
-}
-
 section[id="introduction"] {
     height: 100%;
     display: flex;

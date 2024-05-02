@@ -8,7 +8,7 @@ import "./LandPage.css"
 
 function LandPage() {
     return (
-        <div id="landpage">
+        <>
             <section id="introduction">
                 <article>
                     <h1>Explore o Aprendizado Online</h1>
@@ -41,7 +41,7 @@ function LandPage() {
                 </div>
                 <input type="button" value="Cadastre-se"/>
             </section>
-        </div>
+        </>
     )
 }
 
