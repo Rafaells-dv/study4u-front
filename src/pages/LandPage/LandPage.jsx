@@ -1,9 +1,9 @@
 import React from "react";
-import classphoto from "../assets/images/class.png"
-import baloes from "../assets/images/baloes.png"
-import mundo from "../assets/images/mundo.png"
-import seguro from "../assets/images/seguro.png"
-import estudante from "../assets/images/estudante.png"
+import classphoto from "../../assets/images/class.png"
+import baloes from "../../assets/images/baloes.png"
+import mundo from "../../assets/images/mundo.png"
+import seguro from "../../assets/images/seguro.png"
+import estudante from "../../assets/images/estudante.png"
 import "./LandPage.css"
 
 function LandPage() {

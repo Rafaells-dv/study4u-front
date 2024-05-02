@@ -1,9 +1,9 @@
 import React from "react"
 import { Route, Routes } from "react-router-dom";
-import Login from "../screens/Login.jsx";
-import Sobre from "../screens/Sobre.jsx";
-import Cadastro from "../screens/Cadastro.jsx";
-import LandPage from "../screens/LandPage.jsx";
+import Login from "../pages/Login/Login.jsx";
+import Sobre from "../pages/Sobre/Sobre.jsx";
+import Cadastro from "../pages/Cadastro/Cadastro.jsx";
+import LandPage from "../pages/LandPage/LandPage.jsx";
 
 export function RoutesHeader() {
     return (
