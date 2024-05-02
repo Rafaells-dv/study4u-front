@@ -1,0 +1,23 @@
+#sobre {
+    display: flex;
+    flex-direction: column;
+    align-self: self-start;
+    margin: 4rem 40rem 0 5rem;
+}
+
+#sobre > h1 {
+    font-size: 3rem;
+    color: var(--dark-blue-3);
+    padding-bottom: 2rem;
+}
+
+#sobre > p {
+    font-size: 1.5rem;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    color: var(--dark-blue-3);
+}
+
+#sobre p:last-of-type {
+    font-size: 1rem;
+}

@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter forceRefresh={true}>
+      <BrowserRouter>
         <Header />
         <RoutesHeader />
       </BrowserRouter>
