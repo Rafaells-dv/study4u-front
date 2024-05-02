@@ -2,6 +2,7 @@ import React from "react";
 import "./Login.css";
 
 function Login() {
+
     return (
     <main>
         <form id="login-form">
@@ -16,7 +17,7 @@ function Login() {
                 <input className="text" type="submit" name="logar" value="Logar"/>
                 <div className="text">
                     <a href="">Esqueceu sua senha?</a>
-                    <a href="">Cadastrar</a>
+                    <a href="/cadastro">Cadastrar</a>
                 </div>
             </div>
         </form>

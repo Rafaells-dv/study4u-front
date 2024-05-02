@@ -1,38 +1,19 @@
-import Login from "../screens/Login.jsx";
-import Sobre from "../screens/Sobre.jsx";
-import Cadastro from "../screens/Cadastro.jsx";
-import LandPage from "../screens/LandPage.jsx";
-import { BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import "./Header.css"
+import { RoutesHeader } from "../routes/RoutesHeader.jsx";
 
 function Header(){
     return (
-        <BrowserRouter forceRefresh={true}>
             <header>
                 <nav>
-                    <Link to="/">
-                        <p className="title">Study4u</p>
-                    </Link>
+                    <a href="/sobre"><p className="title">Study4u</p></a>
                     <div id="nav-options">
-                        <Link to="/login">
-                            <input type="button" className="title" value="Logar"/>
-                        </Link>
-                        <Link to="/cadastro">
-                            <input type="button" className="title" value="Cadastre-se"/>
-                        </Link>
-                        <Link to="/about">
-                            <input type="button" className="title" value="Sobre"/>
-                        </Link>
+                        <a href="/login"><input type="button" className="title" value="Logar"/></a>
+                        <a href="/cadastro"><input type="button" className="title" value="Cadastre-se"/></a>
+                        <a href="/sobre"><input type="button" className="title" value="Sobre"/></a>
                     </div> 
                 </nav>
             </header>
-            <Routes>
-                <Route path="/" element={<LandPage />} />
-                <Route path="/login" element={<><Login /></>} />
-                <Route path="/cadastro" element={<Cadastro />} />
-                <Route path="/about" element={<Sobre />} />
-            </Routes>
-        </BrowserRouter>
     )
 }
 
