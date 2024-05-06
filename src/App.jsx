@@ -1,18 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import './App.css';
 import Header from './components/Header';
-import { BrowserRouter } from 'react-router-dom';
-import { RoutesHeader } from './routes/RoutesHeader';
+import { BrowserRouter as Router } from 'react-router-dom';
+import PublicRoutes  from './routes/PublicRoutes';
+import  PrivateRoutes  from './routes/PrivateRoutes';
+import { AuthContext } from './contexts/AuthContext';
 
 function App() {
 
+  const { auth } = useContext(AuthContext)
+  console.log(auth)
   return (
-    <>
-      <BrowserRouter>
-        <Header />
-        <RoutesHeader />
-      </BrowserRouter>
-    </>
+    <Router>
+      {auth ? <PrivateRoutes /> : <><Header /><PublicRoutes /></>}
+    </Router>
   )
 }
 
