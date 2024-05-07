@@ -3,7 +3,7 @@ import "./Header.css"
 function Header(){
     return (
             <header>
-                <nav>
+                <nav id="public">
                     <a href="/"><p className="title">Study4u</p></a>
                     <div id="nav-options">
                         <a href="/login"><input type="button" className="title" value="Logar"/></a>

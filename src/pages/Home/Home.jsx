@@ -1,8 +1,18 @@
 import React from "react";
+import Sidebar from "../../components/Sidebar.jsx"
+import "./Home.css"
 
 function Home() {
     return (
-        <h1>Home</h1>
+        <>
+        <div id="private">
+            <Sidebar />
+            <div id="home">
+                <input type="search" name="pesquisar" placeholder="Pesquisar salas..."/>
+            </div>
+        </div>
+        </>
+        
     )
 }
 

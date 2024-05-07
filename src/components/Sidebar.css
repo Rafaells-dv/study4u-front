@@ -1,0 +1,10 @@
+nav[id="private"] {
+    height: 100%;
+    background-color: var(--dark-blue-2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    color: var(--blue-light);
+}

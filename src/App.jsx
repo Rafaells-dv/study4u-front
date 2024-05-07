@@ -12,7 +12,7 @@ function App() {
   console.log(auth)
   return (
     <Router>
-      {auth ? <PrivateRoutes /> : <><Header /><PublicRoutes /></>}
+      {auth ? <><PrivateRoutes /></> : <><Header /><PublicRoutes /></>}
     </Router>
   )
 }

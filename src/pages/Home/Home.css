@@ -1,0 +1,14 @@
+div[id="private"] {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+div[id="home"] {
+    margin: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+    background-color: var(--white);
+    display: flex;
+    flex-direction: column;
+}

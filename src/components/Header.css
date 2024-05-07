@@ -1,4 +1,4 @@
-nav {
+nav[id="public"] {
     background-color: var(--dark-blue-2);
     display: flex;
     justify-content: space-around;
