@@ -6,13 +6,12 @@ function Sidebar() {
         <header>
             <nav id="private">
                 <h1 class="title">nome usuario</h1>
-                <div>
-                    <p class="text">salas</p>
-                    <p class="text">minhas salas</p>
-                    <p class="text">criar sala</p>
-                    
+                <div id="side-options">
+                    <a href="/home"><input type="button" className="title" value="Salas"/></a>
+                    <a href="/minhas-salas"><input type="button" className="title" value="Minhas Salas"/></a>
+                    <a href="/"><input type="button" className="title" value="Criar Salas"/></a>
                 </div>
-                <p class="text">logout</p>
+                <input type="button" className="title" value="Logout"/>
             </nav>
         </header>
     )

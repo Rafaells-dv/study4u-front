@@ -4,7 +4,7 @@ div[id="private"] {
     display: flex;
 }
 
-div[id="home"] {
+div[id="salas-user"] {
     margin: 2rem;
     border-radius: 1rem;
     width: 100%;
@@ -13,7 +13,7 @@ div[id="home"] {
     flex-direction: column;
 }
 
-div[id="home"] > input {
+div[id="salas-user"] > input {
     margin: 2rem 10rem;
     background-color: var(--gray);
     padding: 0.9rem;

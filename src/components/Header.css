@@ -6,7 +6,7 @@ nav[id="public"] {
     color: var(--blue-light);
 }
 
-div[id="nav-options"] > * >input {
+div[id="nav-options"] > * > input {
     background-color: var(--dark-blue-2);
     padding: 0 1rem;
     border-radius: 1rem;
@@ -16,7 +16,7 @@ div[id="nav-options"] > * >input {
 }
 
 p[class="title"] {
-    font-size: 1rem;
+    font-size: 2rem;
 }
 
 input[value="Logar"]:hover {

@@ -8,3 +8,39 @@ nav[id="private"] {
     padding: 1rem;
     color: var(--blue-light);
 }
+
+div[id="side-options"]{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+div[id="side-options"] > * > input {
+    background-color: var(--dark-blue-2);
+    padding: 0 1rem;
+    border-radius: 1rem;
+    border: none;
+    color: var(--blue-light);
+    cursor: pointer;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+input[value="Logout"] {
+    background-color: var(--dark-blue-2);
+    padding: 0 1rem;
+    border-radius: 1rem;
+    border: none;
+    color: var(--blue-light);
+    cursor: pointer;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+
+input[value="Logout"]:hover,
+input[value="Criar Salas"]:hover,
+input[value="Minhas Salas"]:hover,
+input[value="Salas"]:hover {
+    background-color: var(--blue-light);
+    color: var(--dark-blue-2);
+}

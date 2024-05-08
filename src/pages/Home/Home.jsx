@@ -8,11 +8,13 @@ function Home() {
         <div id="private">
             <Sidebar />
             <div id="home">
-                <input type="search" name="pesquisar" placeholder="Pesquisar salas..."/>
+                <input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..."/>
+                <div id="salas">
+                    <p>Mostrar salas</p>
+                </div>
             </div>
         </div>
         </>
-        
     )
 }
 
