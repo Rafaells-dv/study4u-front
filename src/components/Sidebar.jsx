@@ -9,7 +9,7 @@ function Sidebar() {
                 <div id="side-options">
                     <a href="/home"><input type="button" className="title" value="Salas"/></a>
                     <a href="/minhas-salas"><input type="button" className="title" value="Minhas Salas"/></a>
-                    <a href="/"><input type="button" className="title" value="Criar Salas"/></a>
+                    <a href="/criar-sala"><input type="button" className="title" value="Criar Salas"/></a>
                 </div>
                 <input type="button" className="title" value="Logout"/>
             </nav>
