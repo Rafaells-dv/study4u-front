@@ -5,7 +5,7 @@ function Sidebar() {
     return (
         <header>
             <nav id="private">
-                <h1 class="title">nome usuario</h1>
+                <h1 className="title">nome usuario</h1>
                 <div id="side-options">
                     <a href="/home"><input type="button" className="title" value="Salas"/></a>
                     <a href="/minhas-salas"><input type="button" className="title" value="Minhas Salas"/></a>
