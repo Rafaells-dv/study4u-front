@@ -35,7 +35,7 @@ function Sala() {
                         <Card titulo="Trigonometria"/>
                     </div>
                     <div id="sala-options">
-                        <input type="button" name="adicionar" value="Adicionar conteúdo" onClick={addConteudo}/>
+                        <input type="button" name="editarConteudo" value="Adicionar conteúdo" onClick={addConteudo}/>
                         <div>
                             <input type="button" name="excluir" value="Excluir" />
                             <input type="button" name="sairSala" value="Sair da sala" />

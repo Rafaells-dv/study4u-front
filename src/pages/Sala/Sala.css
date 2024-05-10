@@ -13,11 +13,11 @@ div[id="sala"] {
     flex-direction: column;
 }
 
-div[id="sala"] article > h1 {
+div[id="sala"] > article > h1 {
     color: var(--dark-blue-3);
 }
 
-div[id="sala"] article > p[id="desc-sala"] {
+div[id="sala"] > article > p[id="desc-sala"] {
     color: var(--dark-blue-2);
     font-size: 1.3rem;
 }
