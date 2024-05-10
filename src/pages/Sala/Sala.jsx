@@ -1,13 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "../../components/Sidebar"
 import Card from "../../components/Card.jsx"
+import FormConteudo from "../../components/FormConteudo";
 import "./Sala.css"
+import { Form } from "react-router-dom";
 
 function Sala() {
+
+    const [showForm, setShowForm] = useState(false)
+
+    function addConteudo() {
+        console.log("clicado")
+        setShowForm(true)
+    }
+
+    const listaConteudoVelha = 1 //fazer requisição dos conteúdos pela api
+
     return (
         <>
             <div id="private">
                 <Sidebar />
+                {showForm && (  <div id="form-popup"><FormConteudo setShowForm={setShowForm}/></div>)}
                 <div id="sala">
                     <article>
                         <h1 className="title">Título da sala</h1>
@@ -22,9 +35,11 @@ function Sala() {
                         <Card titulo="Trigonometria"/>
                     </div>
                     <div id="sala-options">
-                        <p>Botão excluir se o usuario é o dono da pagina e botão sair se não for o dono</p>
-                        <input type="button" name="excluir" value="Excluir" />
-                        <input type="button" name="sairSala" value="Sair da sala" />
+                        <input type="button" name="adicionar" value="Adicionar conteúdo" onClick={addConteudo}/>
+                        <div>
+                            <input type="button" name="excluir" value="Excluir" />
+                            <input type="button" name="sairSala" value="Sair da sala" />
+                        </div>
                     </div>
                 </div>
             </div>
