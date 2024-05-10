@@ -32,7 +32,7 @@ function Cadastro() {
     return (
         <>
             <main>
-                <form action="" method="POST" id="cadastro-form" onSubmit={createUser}>
+                <form action="/cadastro" method="POST" id="cadastro-form" onSubmit={createUser}>
                     <p className="title">Cadastre-se</p>
                     <div id="cadastro-inputs">
                         <input className="text" type="text" name="name" placeholder="Nome:" onChange={handleChange}/>
