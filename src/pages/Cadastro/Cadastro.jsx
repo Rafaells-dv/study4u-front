@@ -9,7 +9,7 @@ function Cadastro() {
         setForm({...form, [e.target.name]: e.target.value});
     }
     
-    const createUser = async (event) => {{
+    const createUser = async (event) => {
         event.preventDefault()
         const request = await fetch('http://localhost:8080/usuarios', {
             method: "POST",
@@ -27,18 +27,12 @@ function Cadastro() {
             return
           }
         
-        }}
+        }
     
-
-
-
-
-
-
     return (
         <>
             <main>
-                <form method="POST" id="cadastro-form" onSubmit={createUser}>
+                <form action="" method="POST" id="cadastro-form" onSubmit={createUser}>
                     <p className="title">Cadastre-se</p>
                     <div id="cadastro-inputs">
                         <input className="text" type="text" name="name" placeholder="Nome:" onChange={handleChange}/>
