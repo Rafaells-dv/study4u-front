@@ -41,7 +41,7 @@ input[name="tituloSala"] {
     font-size: 1.8rem;
 }
 
-textarea[name="descricao"] {
+textarea[name="descricaoSala"] {
     width: 100%;
     height: 400px;
     background-color: var(--gray);
@@ -52,7 +52,7 @@ textarea[name="descricao"] {
     font-size: 1.5rem;
 }
 
-textarea[name="descricao"]:focus,
+textarea[name="descricaoSala"]:focus,
 input[name="tituloSala"]:focus {
     outline: var(--blue-light) solid;
     background-color: var(--white);
