@@ -14,31 +14,31 @@ function CriarSala() {
     }
 
     
-        const createTurma = async (event) => {
-            event.preventDefault();
-            try{
-                const request = await fetch(`http://localhost:8080/turmas?id=${user.id}`, {
-                    method: "POST",
-                    headers: { 
-                        "Content-Type": "application/json",
-                        Authorization: 'Bearer' + user.token,
-                    },
-                    body: JSON.stringify({
-                        titulo: form.titulo,
-                        descricao: form.descricao
-                    })
-                    });
-                
-                    if (request.ok) {
-                        const data = await request.json(); // Transforma a resposta em JSON
-                        console.log(data)
-                        
-                    } else {  
-                        console.error('Erro ao criar sala:', response.statusText);
-                    }
-            } catch(error) {
-                console.error('Erro ao fazer criar sala', error);
-            }}
+    const createTurma = async (event) => {
+        event.preventDefault();
+        try{
+            const request = await fetch(`http://localhost:8080/turmas?id=${user.id}`, {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/json",
+                    Authorization: 'Bearer' + user.token,
+                },
+                body: JSON.stringify({
+                    titulo: form.titulo,
+                    descricao: form.descricao
+                })
+                });
+            
+                if (request.ok) {
+                    const data = await request.json(); // Transforma a resposta em JSON
+                    console.log(data)
+                    
+                } else {  
+                    console.error('Erro ao criar sala:', response.statusText);
+                }
+        } catch(error) {
+            console.error('Erro ao fazer criar sala', error);
+        }}
     
     
     return (
