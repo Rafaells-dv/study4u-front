@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import Sidebar from "../../components/Sidebar.jsx"
 import "./CriarSala.css"
 
@@ -6,21 +7,38 @@ function CriarSala() {
 
     const [form, setForm] = useState({tituloSala: '', descricaoSala: ''});    
     
+    const {setUser, user} = useContext(UserContext);
+
     function handleChange(e) {
         setForm({...form, [e.target.name]: e.target.value});
     }
 
-    const createTurma = async (event) => {
-        event.preventDefault();
-        const request = await fetch(`http://localhost:8080/turmas?id=${idUser}`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                titulo: form.titulo,
-                descricao: form.descricao
-              })
-            });
-    }
+    
+        const createTurma = async (event) => {
+            event.preventDefault();
+            try{
+                const request = await fetch(`http://localhost:8080/turmas?id=${user.id}`, {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        Authorization: 'Bearer' + user.token,
+                    },
+                    body: JSON.stringify({
+                        titulo: form.titulo,
+                        descricao: form.descricao
+                    })
+                    });
+                
+                    if (request.ok) {
+                        const data = await request.json(); // Transforma a resposta em JSON
+                        console.log(data)
+                        
+                    } else {  
+                        console.error('Erro ao criar sala:', response.statusText);
+                    }
+            } catch(error) {
+                console.error('Erro ao fazer criar sala', error);
+            }}
     
     
     return (
