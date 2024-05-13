@@ -8,7 +8,8 @@ nav[id="public"] {
 
 div[id="nav-options"] > * > input {
     background-color: var(--dark-blue-2);
-    padding: 0 1rem;
+    margin-top: 0.7rem;
+    padding: 0rem 1rem;
     border-radius: 1rem;
     border: none;
     color: var(--blue-light);
