@@ -6,17 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
 
-    //usuario para testes sem api
-    const adminUser = {
-        email: 'adminstudy@gmail.com',
-        password: '123456'
-    }
-
     //contexto de auth
     const {setAuth, auth} = useContext(AuthContext);
 
     //contexto de usuario
-    const {user, setUser} = useContext(UserContext);
+    const {setUser, user} = useContext(UserContext);
 
     //setForm para atualizar valores do formulário
     const [form, setForm] = useState({email: '', password: ''});
@@ -34,7 +28,6 @@ function Login() {
         event.preventDefault();
         
         try { 
-
             //resquisição de login
             const request = await fetch('http://localhost:8080/auth/login', {
                 method: "POST",
@@ -47,7 +40,15 @@ function Login() {
 
             if (request.ok) {
                 const data = await request.json(); // Transforma a resposta em JSON
-                console.log(data); // Mostra os dados no console
+                
+                localStorage.setItem('token', data.token)
+
+                setUser({id: data.id, token: localStorage.getItem('token')})
+                
+                setAuth(true)
+                
+                navigate('/home')
+
             } else {
                 console.error('Erro ao fazer login:', response.statusText);
             }
