@@ -9,7 +9,6 @@ import Conteudo from "../pages/Conteudo/Conteudo";
 function PrivateRoutes() {
     return (
     <>
-        
         <Routes>
            <Route path="/home" element={<Home />} />
            <Route path="/minhas-salas" element={<SalasUser />} />
@@ -17,7 +16,6 @@ function PrivateRoutes() {
            <Route path="/sala/conteudo" element={<Conteudo />} />
            <Route path="/criar-sala" element={<CriarSala />} />
         </Routes>
-        
     </>
     )
 }

@@ -1,17 +1,33 @@
-import React from "react";
+import React, {useContext} from "react";
+import { AuthContext } from "../contexts/AuthContext";
 import "./Sidebar.css"
+import { useNavigate } from "react-router-dom";
 
 function Sidebar() {
+
+    const navigate = useNavigate();
+    const {setAuth, auth} = useContext(AuthContext);
+
+    function handleClick(event) {
+        const url = "/" + event.target.name;
+        navigate(url)
+    }
+
+    function logout() {
+        setAuth(false)
+        navigate("/")
+    }
+
     return (
         <header>
             <nav id="private">
                 <h1 className="title">nome usuario</h1>
                 <div id="side-options">
-                    <a href="/home"><input type="button" className="title" value="Salas"/></a>
-                    <a href="/minhas-salas"><input type="button" className="title" value="Minhas Salas"/></a>
-                    <a href="/criar-sala"><input type="button" className="title" value="Criar Salas"/></a>
+                    <input type="button" className="title" name="home" value="Salas" onClick={handleClick}/>
+                    <input type="button" className="title" name="minhas-salas" value="Minhas Salas" onClick={handleClick}/>
+                    <input type="button" className="title" name="criar-sala" value="Criar Salas" onClick={handleClick}/>
                 </div>
-                <input type="button" className="title" value="Logout"/>
+                <input type="button" className="title" value="Logout" onClick={logout}/>
             </nav>
         </header>
     )

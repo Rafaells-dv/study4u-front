@@ -5,7 +5,6 @@ import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-
     //contexto de auth
     const {setAuth, auth} = useContext(AuthContext);
 
@@ -26,7 +25,6 @@ function Login() {
     //lidar com formulario enviado
    const handleLogin = async (event) => {
         event.preventDefault();
-        
         try { 
             //resquisição de login
             const request = await fetch('http://localhost:8080/auth/login', {
