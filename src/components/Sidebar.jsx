@@ -14,7 +14,7 @@ function Sidebar() {
     }
 
     function logout() {
-        setAuth(false)
+        localStorage.setItem('token', null)
         navigate("/")
     }
 

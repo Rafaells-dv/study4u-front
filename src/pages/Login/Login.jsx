@@ -5,6 +5,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+
     //contexto de auth
     const {setAuth, auth} = useContext(AuthContext);
 
@@ -41,9 +42,7 @@ function Login() {
                 
                 localStorage.setItem('token', data.token)
 
-                setUser({id: data.id, token: localStorage.getItem('token')})
-                
-                setAuth(true)
+                setUser({id: data.id, token: data.token})
                 
                 navigate('/home')
 
