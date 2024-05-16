@@ -9,7 +9,7 @@ import { AuthContext } from './contexts/AuthContext';
 function App() {
 
   const { auth } = useContext(AuthContext)
-  console.log(auth)
+
   return (
     <Router>
       {auth ? <><PrivateRoutes /></> : <><Header /><PublicRoutes /></>}

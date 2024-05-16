@@ -38,13 +38,46 @@ function Login() {
                 });
 
             if (request.ok) {
-                const data = await request.json(); // Transforma a resposta em JSON
-                
-                localStorage.setItem('token', data.token)
+                const response = await request.json(); // Transforma a resposta em JSON
+                console.log(response)
 
-                setUser({id: data.id, token: data.token})
+                if (response.token == "Acesso negado") {
+
+                    console.log("email ou senha incorretos")
+
+                } else {
+
+                    localStorage.setItem('token', response.token)
+
+                    const request = await fetch(`http://localhost:8080/usuarios/${response.userId}`, {
+                        method: "GET",
+                        headers: { 
+                            "Content-Type": "application/json",
+                            Authorization: "Bearer" + localStorage.getItem('token')
+                        }});
+
+                    if (request.ok) {
+                        const user = await request.json(); // Transforma a resposta em JSON
+
+                        Object.entries(user).forEach(([chave, valor]) => {
+                            localStorage.setItem(chave, valor)
+                        });
+
+                        setUser({
+                            "id": localStorage.getItem('id'),
+                            "token": localStorage.getItem('token'),
+                            "name": localStorage.getItem('nome'),
+                            "email": localStorage.getItem('email'),
+                        })
+
+                        navigate("/home")
+
+                    } else {
+                        console.log(request.error)
+                    }
+                    
+                }
                 
-                navigate('/home')
 
             } else {
                 console.error('Erro ao fazer login:', response.statusText);

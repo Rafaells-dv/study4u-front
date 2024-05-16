@@ -1,12 +1,12 @@
 import React, {useContext} from "react";
-import { AuthContext } from "../contexts/AuthContext";
 import "./Sidebar.css"
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../contexts/UserContext";
 
 function Sidebar() {
 
     const navigate = useNavigate();
-    const {setAuth, auth} = useContext(AuthContext);
+    const {setUser, user} = useContext(UserContext);
 
     function handleClick(event) {
         const url = "/" + event.target.name;
@@ -14,14 +14,17 @@ function Sidebar() {
     }
 
     function logout() {
-        localStorage.setItem('token', null)
+        localStorage.clear()
+
+        setUser({"token": null})
+        
         navigate("/")
     }
 
     return (
         <header>
             <nav id="private">
-                <h1 className="title">nome usuario</h1>
+                <h1 className="title">{user.name}</h1>
                 <div id="side-options">
                     <input type="button" className="title" name="home" value="Salas" onClick={handleClick}/>
                     <input type="button" className="title" name="minhas-salas" value="Minhas Salas" onClick={handleClick}/>

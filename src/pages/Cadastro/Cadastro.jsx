@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Cadastro.css";
 
 function Cadastro() {
 
+    const navigate = useNavigate();
+    
     const [form, setForm] = useState({name: '', email: '', password: ''});    
     
     function handleChange(e) {
