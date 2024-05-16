@@ -15,9 +15,14 @@ function Sidebar() {
 
     function logout() {
         localStorage.clear()
-
-        setUser({"token": null})
         
+        setUser({
+            "id": localStorage.getItem("id"),
+            "token": localStorage.getItem("token"),
+            "name": localStorage.getItem("nome"),
+            "email": localStorage.getItem("email"),
+        })
+
         navigate("/")
     }
 

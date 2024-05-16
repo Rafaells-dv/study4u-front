@@ -16,12 +16,15 @@ function CriarSala() {
     
     const createTurma = async (event) => {
         event.preventDefault();
+
+        console.log(localStorage.getItem('token'))
+
         try{
-            const request = await fetch(`http://localhost:8080/turmas?id=${user.id}`, {
+            const request = await fetch(`http://localhost:8080/turmas?id=` + user.id, {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer' + user.token,
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 },
                 body: JSON.stringify({
                     titulo: form.titulo,
