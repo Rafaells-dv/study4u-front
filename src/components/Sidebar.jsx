@@ -1,4 +1,5 @@
 import React, {useContext} from "react";
+import NavButton from "./NavButton";
 import "./Sidebar.css"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext";
@@ -31,9 +32,9 @@ function Sidebar() {
             <nav id="private">
                 <h1 className="title">{user.name}</h1>
                 <div id="side-options">
-                    <input type="button" className="title" name="home" value="Salas" onClick={handleClick}/>
-                    <input type="button" className="title" name="minhas-salas" value="Minhas Salas" onClick={handleClick}/>
-                    <input type="button" className="title" name="criar-sala" value="Criar Salas" onClick={handleClick}/>
+                    <NavButton className="title" onClick={handleClick} name="home">Salas</NavButton>
+                    <NavButton className="title" onClick={handleClick} name="minhas-salas">Minhas Salas</NavButton>
+                    <NavButton className="title" onClick={handleClick} name="criar-sala">Criar Salas</NavButton>
                 </div>
                 <input type="button" className="title" value="Logout" onClick={logout}/>
             </nav>

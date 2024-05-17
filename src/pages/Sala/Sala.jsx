@@ -32,6 +32,18 @@ function Sala() {
 
     useEffect(()=>{
         classDetails();
+        // fetch(`http://localhost:8080/turma/${id}`, {
+        //     method: "GET",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Authorization": "Bearer " + localStorage.getItem('token')
+        //     }
+        // }).then((response)=>{
+        //     return response.json()
+        // }).then((data)=>{
+        //     console.log(data)
+        // })
+
     }, [])
 
     function addConteudo() {
@@ -51,12 +63,6 @@ function Sala() {
                         <p className="text" id="desc-sala">Descrição da sala</p>
                     </article>
                     <div id="conteudos">
-                        <Card titulo="Titulo conteúdo"/>
-                        <Card titulo="Pitagoras"/>
-                        <Card titulo="Trigonometria"/>
-                        <Card titulo="Trigonometria"/>
-                        <Card titulo="Trigonometria"/>
-                        <Card titulo="Trigonometria"/>
                     </div>
                     <div id="sala-options">
                         <input type="button" name="adicionar" value="Adicionar conteúdo" onClick={addConteudo}/>

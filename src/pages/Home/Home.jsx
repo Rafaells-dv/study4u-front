@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 function Home() {
 
     const navigate = useNavigate()
-    const {setUser, user} = useContext(UserContext)
 
     const [search, setSearch] = useState('')
     const [classes, setClasses] = useState([])
@@ -53,7 +52,6 @@ function Home() {
             })
             .then((data) => {
                 setClasses(data)
-                console.log(data)
             })
         }, [])
     
