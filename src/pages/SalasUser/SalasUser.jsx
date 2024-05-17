@@ -1,13 +1,16 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import { UserContext } from "../../contexts/UserContext";
 import Sidebar from "../../components/Sidebar.jsx"
 import Salas from "../../components/Salas.jsx";
 import "./SalasUser.css"
+import { useNavigate } from "react-router-dom";
 
 function SalasUser() {
 
+    const navigate = useNavigate();
     const {setUser, user} = useContext(UserContext);
-    const [search, setSearch] = useState('');
+
+    const [salas, setSalas] = useState([]);
 
     function handleChange(event) {
         setSearch(event.target.value)
@@ -20,14 +23,13 @@ function SalasUser() {
                 method: "GET",
                 headers: { 
                     "Content-Type": "application/json",
-                    Authorization: 'Bearer' + user.token,
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 },
             });
 
             if (request.ok) {
-                const data = await request.json()
-                console.log(data)
-
+                const salas = await request.json()
+                setSalas(salas)
             } else {  
                 console.error('Erro ao procurar salas do usuario:', response.statusText);
             }
@@ -36,18 +38,26 @@ function SalasUser() {
         }
     }
 
+    useEffect(()=>{
+        userClasses();
+    }, [])
+
 
     return (
         <>
             <div id="private">
                 <Sidebar />
                 <div id="salas-user">
-                    <input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={handleChange}/>
                     <div className="grupo-salas">
-                        <Salas titulo="Matemática 2° ano" desc="Sala para estudos de mátemática do 2° ano do médio"/>
-                        <Salas titulo="Java iniciante" desc="Inicie sua jornada em Java"/>
-                        <Salas titulo="Java iniciante" desc="Inicie sua jornada em Java"/>
-                        <Salas titulo="Java iniciante" desc="Inicie sua jornada em Java"/>
+                        {salas.map((sala) => 
+                            <div onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
+                                <Salas 
+                                    key={sala.id}
+                                    titulo={sala.titulo}
+                                    desc={sala.descricao}
+                                />
+                            </div>)
+                        }
                     </div>
                 </div>
             </div>

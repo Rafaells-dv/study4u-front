@@ -2,21 +2,24 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import Sidebar from "../../components/Sidebar.jsx"
 import "./CriarSala.css"
+import { useNavigate } from "react-router-dom";
 
 function CriarSala() {
+
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({tituloSala: '', descricaoSala: ''});    
     
     const {setUser, user} = useContext(UserContext);
 
-    function handleChange(e) {
-        setForm({...form, [e.target.name]: e.target.value});
+    function handleChange(event) {
+        setForm({...form, [event.target.name]: event.target.value});
     }
 
     
     const createTurma = async (event) => {
         event.preventDefault();
-
+        console.log(form)
         console.log(localStorage.getItem('token'))
 
         try{
@@ -27,14 +30,15 @@ function CriarSala() {
                     'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 },
                 body: JSON.stringify({
-                    titulo: form.titulo,
-                    descricao: form.descricao
+                    titulo: form.tituloSala,
+                    descricao: form.descricaoSala
                 })
                 });
             
                 if (request.ok) {
-                    const data = await request.json(); // Transforma a resposta em JSON
-                    console.log(data)
+                    const createdClass = await request.json(); // Transforma a resposta em JSON
+
+                    navigate(`/sala/${createdClass.id}`)
                     
                 } else {  
                     console.error('Erro ao criar sala:', response.statusText);
@@ -42,7 +46,6 @@ function CriarSala() {
         } catch(error) {
             console.error('Erro ao fazer criar sala', error);
         }}
-    
     
     return (
         <>
