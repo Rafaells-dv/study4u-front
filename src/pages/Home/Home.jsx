@@ -20,7 +20,7 @@ function Home() {
 
     const searchClasses = async () => {
         try {
-            const request = await fetch(`http://localhost:8080/pesquisar-titulo?pesquisa=${search}`, {
+            const request = await fetch(`http://localhost:8080/turmas/pesquisar-titulo?pesquisa=${search}`, {
                 method: "GET",
                 headers: { 
                     "Content-Type": "application/json",
@@ -51,6 +51,7 @@ function Home() {
                 return response.json()
             })
             .then((data) => {
+                console.log(data)
                 setClasses(data)
             })
         }, [])
@@ -64,9 +65,8 @@ function Home() {
                 <input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={handleChange}/>
                 <div className="grupo-salas">
                     {classes.map((sala) => 
-                        <div onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
+                        <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
                             <Salas 
-                                key={sala.id}
                                 titulo={sala.titulo}
                                 desc={sala.descricao}
                             />

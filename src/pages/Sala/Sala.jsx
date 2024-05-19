@@ -8,11 +8,13 @@ import { useParams } from "react-router-dom";
 function Sala() {
 
     const [showForm, setShowForm] = useState(false)
+    const [classDetail, setClassDetail] = useState({})
+    const [conteudos , setConteudos] = useState([])
 
     const { id } = useParams()
 
     const classDetails = async () => {
-        const request = await fetch(`http://localhost:8080/turmas/${id}`, {
+        const requestClass = await fetch(`http://localhost:8080/turmas/consultar-turma/${id}`, {
             method: "GET",
             headers: { 
                 "Content-Type": "application/json",
@@ -20,34 +22,42 @@ function Sala() {
             },
         })
 
-        if (request.ok) {
-            const classDetail = await request.json(); // Transforma a resposta em JSON
+        if (requestClass.ok) {
+            const classDetail = await requestClass.json(); // Transforma a resposta em JSON
 
-            console.log(classDetail)
+            setClassDetail(classDetail)
             
         } else {  
             console.error('Erro ao criar sala:', response.statusText);
         }
     }
 
+    const getConteudos = async () => {
+        const requestConteudo = await fetch(`http://localhost:8080/conteudos/turma/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem('token'),
+            },
+        })
+
+        if (requestConteudo.ok) {
+            const conteudoList = await requestConteudo.json();
+            console.log(conteudoList)
+            setConteudos(conteudoList);
+
+        } else {
+            console.log('Erro ao criar sala:', response.statusText);
+        }
+
+    }
+
     useEffect(()=>{
         classDetails();
-        // fetch(`http://localhost:8080/turma/${id}`, {
-        //     method: "GET",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Authorization": "Bearer " + localStorage.getItem('token')
-        //     }
-        // }).then((response)=>{
-        //     return response.json()
-        // }).then((data)=>{
-        //     console.log(data)
-        // })
-
+        getConteudos();
     }, [])
 
     function addConteudo() {
-        console.log("clicado")
         setShowForm(true)
     }
 
@@ -56,13 +66,18 @@ function Sala() {
         <>
             <div id="private">
                 <Sidebar />
-                {showForm && (  <div id="form-popup"><FormConteudo setShowForm={setShowForm}/></div>)}
+                {showForm && (  <div id="form-popup"><FormConteudo setShowForm={setShowForm} idTurma={id}/></div>)}
                 <div id="sala">
                     <article>
-                        <h1 className="title">id da sala: {id}</h1>
-                        <p className="text" id="desc-sala">Descrição da sala</p>
+                        <h1 className="title">{classDetail.titulo}</h1>
+                        <p className="text" id="desc-sala">{classDetail.descricao}</p>
                     </article>
                     <div id="conteudos">
+                        {conteudos.map((conteudo) => {
+                            <div key={conteudo.id}>
+                                <Card titulo={conteudo.titulo} />
+                            </div>
+                        })}
                     </div>
                     <div id="sala-options">
                         <input type="button" name="adicionar" value="Adicionar conteúdo" onClick={addConteudo}/>
