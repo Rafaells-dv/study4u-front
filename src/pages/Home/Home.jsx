@@ -1,9 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import Sidebar from "../../components/Sidebar.jsx"
-import Salas from "../../components/Salas.jsx";
 import "./Home.css"
-import { UserContext } from "../../contexts/UserContext.jsx";
 import { useNavigate } from "react-router-dom";
+import Card from "../../components/ConteudoCard.jsx";
+import Salas from "../../components/Salas.jsx";
 
 function Home() {
 
@@ -15,7 +15,6 @@ function Home() {
     function handleChange(event) {
         setSearch(event.target.value)
         searchClasses()
-        console.log(classes)
     }
 
     const searchClasses = async () => {
@@ -51,7 +50,6 @@ function Home() {
                 return response.json()
             })
             .then((data) => {
-                console.log(data)
                 setClasses(data)
             })
         }, [])
@@ -66,7 +64,7 @@ function Home() {
                 <div className="grupo-salas">
                     {classes.map((sala) => 
                         <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
-                            <Salas 
+                            <Salas
                                 titulo={sala.titulo}
                                 desc={sala.descricao}
                             />

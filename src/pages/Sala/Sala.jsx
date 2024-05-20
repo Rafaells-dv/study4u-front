@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar"
-import Card from "../../components/Card.jsx"
+import ConteudoCard from "../../components/ConteudoCard.jsx"
 import FormConteudo from "../../components/FormConteudo";
 import "./Sala.css"
 import { useParams } from "react-router-dom";
@@ -73,11 +73,11 @@ function Sala() {
                         <p className="text" id="desc-sala">{classDetail.descricao}</p>
                     </article>
                     <div id="conteudos">
-                        {conteudos.map((conteudo) => {
-                            <div key={conteudo.id}>
-                                <Card titulo={conteudo.titulo} />
+                        {conteudos.map((conteudo) => (
+                            <div key={conteudo.id} style={{'width': '100%'}}>
+                                <ConteudoCard titulo={conteudo.titulo} descricao={conteudo.descricao} data={conteudo.dataCriacao}/>
                             </div>
-                        })}
+                        ))}
                     </div>
                     <div id="sala-options">
                         <input type="button" name="adicionar" value="Adicionar conteúdo" onClick={addConteudo}/>

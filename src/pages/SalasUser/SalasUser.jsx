@@ -50,9 +50,8 @@ function SalasUser() {
                 <div id="salas-user">
                     <div className="grupo-salas">
                         {salas.map((sala) => 
-                            <div onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
+                            <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
                                 <Salas 
-                                    key={sala.id}
                                     titulo={sala.titulo}
                                     desc={sala.descricao}
                                 />
