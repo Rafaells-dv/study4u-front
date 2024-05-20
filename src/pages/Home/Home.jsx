@@ -39,6 +39,7 @@ function Home() {
     
 
     useEffect(()=>{
+        try {
             fetch('http://localhost:8080/turmas', {
                 method: 'GET',
                 headers: {
@@ -50,9 +51,18 @@ function Home() {
                 return response.json()
             })
             .then((data) => {
-                setClasses(data)
+                if (data.status == 401) {
+                    console.log(data)
+                } else {
+                    setClasses(data)
+                }
+                
             })
-        }, [])
+        } catch(error) {
+            console.log(error)
+        }
+
+    }, [])
     
 
     return (
