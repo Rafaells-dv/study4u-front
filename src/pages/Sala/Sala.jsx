@@ -66,7 +66,7 @@ function Sala() {
         <>
             <div id="private">
                 <Sidebar />
-                {showForm && (  <div id="form-popup"><FormConteudo setShowForm={setShowForm} idTurma={id}/></div>)}
+                {showForm && (  <div id="form-popup"><FormConteudo setShowForm={setShowForm} getConteudos={getConteudos}/></div>)}
                 <div id="sala">
                     <article>
                         <h1 className="title">{classDetail.titulo}</h1>

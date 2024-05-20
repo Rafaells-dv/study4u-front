@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { useParams } from "react-router-dom";
 
-function FormConteudo({ setShowForm }) {
+function FormConteudo({ setShowForm, getConteudos }) {
 
     const [form, setForm] = useState({})
     const { id } = useParams();
@@ -26,12 +26,9 @@ function FormConteudo({ setShowForm }) {
         })
 
         if (request.ok) {
-            const data = request.json()
-            console.log(data)
+            getConteudos()
         }
         
-
-
         setShowForm(false)
     }
 
