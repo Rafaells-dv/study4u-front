@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import NavButton from "./NavButton";
 import "./Sidebar.css"
 import { useNavigate } from "react-router-dom";
@@ -7,7 +7,8 @@ import { UserContext } from "../contexts/UserContext";
 function Sidebar() {
 
     const navigate = useNavigate();
-    const {setUser, user} = useContext(UserContext);
+
+    const {setUser, user, getUserDetail} = useContext(UserContext);
 
     function handleClick(event) {
         const url = "/" + event.target.name;
@@ -16,7 +17,8 @@ function Sidebar() {
 
     function logout() {
         localStorage.clear()
-        
+        localStorage.setItem("isLogged", false)
+
         setUser({
             "id": localStorage.getItem("id"),
             "token": localStorage.getItem("token"),
@@ -26,6 +28,10 @@ function Sidebar() {
 
         navigate("/")
     }
+
+    useEffect(()=>{
+        getUserDetail()
+    }, [])
 
     return (
         <header>

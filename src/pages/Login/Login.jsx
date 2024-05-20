@@ -57,16 +57,13 @@ function Login() {
 
                     if (request.ok) {
                         const user = await request.json(); // Transforma a resposta em JSON
+                        console.log(user)
 
-                        Object.entries(user).forEach(([chave, valor]) => {
-                            localStorage.setItem(chave, valor)
-                        });
+                        localStorage.setItem('id', user.id)
 
                         setUser({
                             "id": localStorage.getItem('id'),
                             "token": localStorage.getItem('token'),
-                            "name": localStorage.getItem('nome'),
-                            "email": localStorage.getItem('email'),
                         })
 
                         navigate("/home")
