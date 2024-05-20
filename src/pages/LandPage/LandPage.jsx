@@ -17,7 +17,7 @@ function LandPage() {
                 </article>
                 <img id="classroom" src={classphoto}/>
             </section>
-            <section id="resources"></section>
+            <section id="resources">
                 <h1>Por que escolher nossa sala de aula virtual?</h1>
                 <div>
                     <div>
@@ -33,6 +33,7 @@ function LandPage() {
                         <p>Ambiente seguro e protegido para alunos e professores.</p>
                     </div>
                 </div>
+            </section>
             <section id="depositions">
                 <h1>Depoimentos e Inscrição</h1>
                 <div>
