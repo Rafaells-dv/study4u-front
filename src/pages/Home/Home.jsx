@@ -4,6 +4,7 @@ import "./Home.css"
 import { useNavigate } from "react-router-dom";
 import Card from "../../components/ConteudoCard.jsx";
 import Salas from "../../components/Salas.jsx";
+import { UserContext } from "../../contexts/UserContext.jsx";
 
 function Home() {
 
@@ -11,6 +12,7 @@ function Home() {
 
     const [search, setSearch] = useState('')
     const [classes, setClasses] = useState([])
+    const {user} = useContext(UserContext)
 
     function handleChange(event) {
         setSearch(event.target.value)
@@ -40,7 +42,7 @@ function Home() {
 
     useEffect(()=>{
         try {
-            fetch('http://localhost:8080/turmas', {
+            fetch(`http://localhost:8080/turmas/usuario/${user.id}`, {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',

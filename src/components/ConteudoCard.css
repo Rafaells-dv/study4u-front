@@ -1,7 +1,6 @@
 #title-conteudo {
     font-size: 1rem;
     color: var(--dark-blue-3);
-    padding-bottom: 1rem;
     justify-self: flex-start;
     font-size: 2rem;
 }
@@ -35,5 +34,5 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 2rem;
+    padding: 1rem 2rem 0.5rem 2rem;
 }
