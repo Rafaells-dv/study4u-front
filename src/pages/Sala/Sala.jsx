@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar"
 import ConteudoCard from "../../components/ConteudoCard.jsx"
 import FormConteudo from "../../components/FormConteudo";
+import Button from "../../components/Button.jsx";
 import "./Sala.css"
 import { useParams } from "react-router-dom";
 
@@ -80,7 +81,7 @@ function Sala() {
                         ))}
                     </div>
                     <div id="sala-options">
-                        <input type="button" name="adicionar" value="Adicionar conteúdo" onClick={addConteudo}/>
+                        <Button onClick={addConteudo}>Adicionar Conteudo</Button>
                         <div>
                             <input type="button" name="excluir" value="Excluir" />
                             <input type="button" name="sairSala" value="Sair da sala" />
