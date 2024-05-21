@@ -122,7 +122,7 @@ input[name="tituloConteudo"]:focus {
     background-color: var(--white);
 }
 
-input[value="Adicionar"] {
+button[value="Adicionar"] {
     background-color: var(--dark-blue-2) !important;
     color: var(--white) !important;
     cursor: pointer;
@@ -131,11 +131,11 @@ input[value="Adicionar"] {
     width: 60%;
 }
   
-input[value="Adicionar"]:hover {
+button[value="Adicionar"]:hover {
     background-color: var(--dark-blue) !important;
 }
 
-input[value="Cancelar"] {
+button[value="Cancelar"] {
     background-color: var(--red) !important;
     color: var(--white) !important;
     cursor: pointer;
@@ -144,6 +144,6 @@ input[value="Cancelar"] {
     width: 60%;
 }
   
-input[value="Cancelar"]:hover {
+button[value="Cancelar"]:hover {
     background-color: var(--red) !important;
 }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar"
 import ConteudoCard from "../../components/ConteudoCard.jsx"
-import FormConteudo from "../../components/FormConteudo";
 import Button from "../../components/Button.jsx";
 import "./Sala.css"
 import { useParams } from "react-router-dom";
+import DynamicForm from "../../components/DynamicForm.jsx";
 
 function Sala() {
 
@@ -62,12 +62,76 @@ function Sala() {
         setShowForm(true)
     }
 
+    //Tratamento do formulário
+    const [form, setForm] = useState({});
+
+    async function handleAdd(event) {
+        event.preventDefault()
+        
+        const request = await fetch(`http://localhost:8080/conteudos?idTurma=${id}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem('token'),
+            },
+            body: JSON.stringify({
+                titulo: form.tituloConteudo,
+                descricao: form.descricaoConteudo,
+            })
+        })
+
+        if (request.ok) {
+            getConteudos()
+        }
+        
+        setShowForm(false)
+    }
+
+    function handleCancel(event) {
+        event.preventDefault()
+        console.log("cancelar")
+        setShowForm(false)
+    }
+
+    const fields = [
+        {
+            name: "tituloConteudo", 
+            type: "text", 
+            placeholder: "Titulo do conteúdo", 
+            tag: "input"
+        }, 
+        {
+            name: "descricaoConteudo", 
+            type: "text", 
+            placeholder: "Descrição do conteúdo", 
+            tag: "textarea"
+        },
+    ]
+
+    const buttons = [
+        {
+            text: "Adicionar",
+            function: handleAdd,
+        },
+        {
+            text: "Cancelar",
+            function: handleCancel,
+        }
+    ]
+
 
     return (
         <>
             <div id="private">
                 <Sidebar />
-                {showForm && (  <div id="form-popup"><FormConteudo setShowForm={setShowForm} getConteudos={getConteudos}/></div>)}
+                {showForm && (
+                    <div id="form-popup">
+                        <DynamicForm idForm="add-conteudo" fields={fields} buttons={buttons} 
+                            handleAdd={handleAdd} handleCancel={handleCancel} 
+                            form={form} setForm={setForm}
+                        />
+                    </div>
+                )}
                 <div id="sala">
                     <article>
                         <h1 className="title">{classDetail.titulo}</h1>

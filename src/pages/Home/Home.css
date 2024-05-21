@@ -13,13 +13,21 @@ div[id="home"] {
     flex-direction: column;
 }
 
-div[id="home"] > input {
-    margin: 2rem 10rem;
+div[id="home-inputs"] {
+     width: 100%;
+     margin: 2rem 0;
+     display: flex;
+     justify-content: space-around;
+   
+}
+
+div[id="home-inputs"] > input {
     background-color: var(--gray);
     padding: 0.9rem;
     border-radius: 1rem;
     border-style: none;
     font-size: 1rem;
+    width: 70%;
 }
 
 input[name="pesquisar"]:focus {

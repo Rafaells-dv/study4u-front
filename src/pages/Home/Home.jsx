@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Salas from "../../components/Salas.jsx";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import Loader from "../../components/Loader.jsx";
+import Button from "../../components/Button.jsx";
 
 function Home() {
 
@@ -61,7 +62,10 @@ function Home() {
         <div id="private">
             <Sidebar />
             <div id="home">
-                <input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={event => setSearch(event.target.value)} value={search}/>
+                <div id="home-inputs">
+                    <input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={event => setSearch(event.target.value)} value={search}/>
+                    <Button>Nova Sala</Button>
+                </div>
                 <div className="grupo-salas">
                     {search.length > 0 ? (
                         filteredSalas.length > 0 ? (
