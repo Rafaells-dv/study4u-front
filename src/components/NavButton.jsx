@@ -8,6 +8,7 @@ const NavButton = styled.button`
     border: none;
     color: #C5D5EA;
     cursor: pointer;
+    transition: 0.3s;
 
     &:hover {
         background-color: #C5D5EA;

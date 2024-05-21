@@ -1,44 +1,35 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState, useMemo} from "react";
 import Sidebar from "../../components/Sidebar.jsx"
 import "./Home.css"
 import { useNavigate } from "react-router-dom";
-import Card from "../../components/ConteudoCard.jsx";
 import Salas from "../../components/Salas.jsx";
 import { UserContext } from "../../contexts/UserContext.jsx";
+import Loader from "../../components/Loader.jsx";
 
 function Home() {
 
     const navigate = useNavigate()
 
     const [search, setSearch] = useState('')
-    const [classes, setClasses] = useState([])
+    const [salas, setSalas] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
+
     const {user} = useContext(UserContext)
 
-    function handleChange(event) {
-        setSearch(event.target.value)
-        searchClasses()
-    }
-
-    const searchClasses = async () => {
-        try {
-            const request = await fetch(`http://localhost:8080/turmas/pesquisar-titulo?pesquisa=${search}`, {
-                method: "GET",
-                headers: { 
-                    "Content-Type": "application/json",
-                    "Authorization": 'Bearer ' + localStorage.getItem("token"),
-                },
-            });
-
-            if(request.ok) {
-                const data = await request.json(); // Transforma a resposta em JSON
-                setClasses(data)
-            }
-        } catch(error) {
-            console.log('Erro ao pesquisar salas', error)
-        }
-    }
-
+    const filteredSalas = useMemo(() => {
+        return search.length > 0 
+            ? salas.filter(sala => sala.titulo.toLowerCase().includes(search.toLowerCase()))
+            : []
+    }, [salas, search]);
     
+    useEffect(() => {
+        if (filteredSalas.length === 0) {
+            setIsLoading(true);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 3000);
+        }
+    }, [filteredSalas]);
 
     useEffect(()=>{
         try {
@@ -48,40 +39,60 @@ function Home() {
                   'Content-Type': 'application/json',
                   'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 },
-            })
-            .then((response)=>{
-                return response.json()
-            })
-            .then((data) => {
-                if (data.status == 401) {
-                    console.log(data)
-                } else {
-                    setClasses(data)
                 }
-                
-            })
+            )
+            .then(response => response.json())
+            .then(data => { if (data.status == 401) {
+                                console.log(data)
+                            } else {
+                                setSalas(data)
+                            }
+                        }
+            )
         } catch(error) {
             console.log(error)
         }
 
     }, [])
-    
 
+    
     return (
         <>
         <div id="private">
             <Sidebar />
             <div id="home">
-                <input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={handleChange}/>
+                <input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={event => setSearch(event.target.value)} value={search}/>
                 <div className="grupo-salas">
-                    {classes.map((sala) => 
-                        <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
-                            <Salas
-                                titulo={sala.titulo}
-                                desc={sala.descricao}
-                            />
-                        </div>
+                    {search.length > 0 ? (
+                        filteredSalas.length > 0 ? (
+                            filteredSalas.map(sala => (
+                                <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
+                                    <Salas
+                                        titulo={sala.titulo}
+                                        desc={sala.descricao}
+                                    />
+                                </div>
+                            ))
+                        ) : ( 
+                            <div id="salas-notfound">
+                                {isLoading ? (
+                                    <Loader />
+                                ) : (
+                                    <p className="text">Nenhuma sala encontrada.</p>
+                                )}
+                            </div>
+                        )
+                    ) : (
+                        salas.map((sala) => (
+                            <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
+                                <Salas
+                                    titulo={sala.titulo}
+                                    desc={sala.descricao}
+                                />
+                            </div>
+                        ))
                     )}
+                        
                 </div>
             </div>
         </div>

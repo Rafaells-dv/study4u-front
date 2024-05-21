@@ -6,84 +6,87 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
 
-    //contexto de auth
-    const {setAuth, auth} = useContext(AuthContext);
+     //contexto de auth
+     const {setAuth, auth} = useContext(AuthContext);
 
-    //contexto de usuario
-    const {setUser, user} = useContext(UserContext);
-
-    //setForm para atualizar valores do formulário
-    const [form, setForm] = useState({email: '', password: ''});
-    
-    //função para navegar entre páginas
-    const navigate = useNavigate(); 
-
-    //lidar com preenchimento do formulario
-    function handleChange(event) {
-        setForm({...form, [event.target.name]: event.target.value});
-    }
-
-    //lidar com formulario enviado
-   const handleLogin = async (event) => {
-        event.preventDefault();
-        try { 
-            //resquisição de login
-            const request = await fetch('http://localhost:8080/auth/login', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    email: form.email,
-                    senha: form.password
-                })
-                });
-
-            if (request.ok) {
-                const response = await request.json(); // Transforma a resposta em JSON
-                console.log(response)
-
-                if (response.token == "Acesso negado") {
-
-                    console.log("email ou senha incorretos")
-
-                } else {
-
-                    localStorage.setItem('token', response.token)
-
-                    const request = await fetch(`http://localhost:8080/usuarios/${response.userId}`, {
-                        method: "GET",
-                        headers: { 
-                            "Content-Type": "application/json",
-                        }});
-
-                    if (request.ok) {
-                        const user = await request.json(); // Transforma a resposta em JSON
-                        console.log(user)
-
-                        localStorage.setItem('id', user.id)
-
-                        setUser({
-                            "id": localStorage.getItem('id'),
-                            "token": localStorage.getItem('token'),
-                        })
-
-                        navigate("/home")
-
-                    } else {
-                        console.log(request.error)
-                    }
-                    
-                }
-                
-
-            } else {
-                console.error('Erro ao fazer login:', response.statusText);
-            }
-
-        } catch (error) {
-            console.error('Erro ao fazer login:', error);
-        }
-
-    }
+     //contexto de usuario
+     const {setUser, user} = useContext(UserContext);
+ 
+     //setForm para atualizar valores do formulário
+     const [form, setForm] = useState({email: '', password: ''});
+     
+     //função para navegar entre páginas
+     const navigate = useNavigate(); 
+ 
+     //lidar com preenchimento do formulario
+     function handleChange(event) {
+         setForm({...form, [event.target.name]: event.target.value});
+     }
+ 
+     //lidar com formulario enviado
+    const handleLogin = async (event) => {
+         event.preventDefault();
+         try { 
+             //resquisição de login
+             const request = await fetch('http://localhost:8080/auth/login', {
+                 method: "POST",
+                 headers: { "Content-Type": "application/json" },
+                 body: JSON.stringify({
+                     email: form.email,
+                     senha: form.password
+                 })
+                 });
+ 
+             if (request.ok) {
+                 const response = await request.json(); // Transforma a resposta em JSON
+                 console.log(response)
+ 
+                 if (response.token == "Acesso negado") {
+ 
+                     console.log("email ou senha incorretos")
+ 
+                 } else {
+ 
+                     localStorage.setItem('token', response.token)
+ 
+                     const request = await fetch(`http://localhost:8080/usuarios/${response.userId}`, {
+                         method: "GET",
+                         headers: { 
+                             "Content-Type": "application/json",
+                         }});
+ 
+                     if (request.ok) {
+                         const user = await request.json(); // Transforma a resposta em JSON
+                         console.log(user)
+ 
+                         localStorage.setItem('id', user.id)
+ 
+                         setUser({
+                             "id": localStorage.getItem('id'),
+                             "token": localStorage.getItem('token'),
+                             "name": user.nome,
+                             "email": user.email,
+                         })
+ 
+                         navigate("/home")
+ 
+                     } else {
+                         console.log(request.error)
+                     }
+                     
+                 }
+                 
+ 
+             } else {
+                 console.error('Erro ao fazer login:', response.statusText);
+             }
+ 
+         } catch (error) {
+             console.error('Erro ao fazer login:', error);
+         }
+ 
+     }
+ 
 
     return (
     <>

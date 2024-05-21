@@ -8,7 +8,7 @@ function Header() {
         <header>
             <nav id="public">
                 <a href="/">
-                    <p className="title">Study4u</p>
+                    <p id="headerTitle" className="title">Study4u</p>
                 </a>
                 <div id="nav-options">
                     <a href="/login">

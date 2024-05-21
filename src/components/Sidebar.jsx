@@ -17,7 +17,6 @@ function Sidebar() {
 
     function logout() {
         localStorage.clear()
-        localStorage.setItem("isLogged", false)
 
         setUser({
             "id": localStorage.getItem("id"),
@@ -41,7 +40,7 @@ function Sidebar() {
                     <NavButton className="title" onClick={handleClick} name="home">Salas</NavButton>
                     <NavButton className="title" onClick={handleClick} name="criar-sala">Criar Salas</NavButton>
                 </div>
-                <input type="button" className="title" value="Logout" onClick={logout}/>
+                <NavButton type="button" className="title" value="Logout" onClick={logout}>Logout</NavButton>
             </nav>
         </header>
     )
