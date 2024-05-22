@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../../components/Sidebar"
-import ConteudoCard from "../../components/ConteudoCard.jsx"
-import Button from "../../components/Button.jsx";
+import Sidebar from "../../components/Sidebar/Sidebar.jsx"
+import ConteudoCard from "../../components/ConteudoCard/ConteudoCard.jsx"
+import Button from "../../components/Button/Button.jsx";
 import "./Sala.css"
 import { useParams } from "react-router-dom";
-import DynamicForm from "../../components/DynamicForm.jsx";
+import DynamicForm from "../../components/DynamicForm/DynamicForm.jsx";
 
 function Sala() {
 

@@ -1,11 +1,11 @@
 import React, {useContext, useEffect, useState, useMemo} from "react";
-import Sidebar from "../../components/Sidebar.jsx"
+import Sidebar from "../../components/Sidebar/Sidebar.jsx"
 import "./Home.css"
 import { useNavigate } from "react-router-dom";
-import Salas from "../../components/Salas.jsx";
+import Salas from "../../components/Salas/Salas.jsx";
 import { UserContext } from "../../contexts/UserContext.jsx";
-import Loader from "../../components/Loader.jsx";
-import Button from "../../components/Button.jsx";
+import Loader from "../../components/Loader/Loader.jsx";
+import Button from "../../components/Button/Button.jsx";
 
 function Home() {
 

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import Sidebar from "../../components/Sidebar.jsx"
+import Sidebar from "../../components/Sidebar/Sidebar.jsx"
 import "./CriarSala.css"
 import { useNavigate } from "react-router-dom";
 

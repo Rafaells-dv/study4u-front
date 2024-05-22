@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import { UserContext } from "../../contexts/UserContext";
-import Sidebar from "../../components/Sidebar.jsx"
-import Salas from "../../components/Salas.jsx";
+import Sidebar from "../../components/Sidebar/Sidebar.jsx"
+import Salas from "../../components/Salas/Salas.jsx";
 import "./SalasUser.css"
 import { useNavigate } from "react-router-dom";
 

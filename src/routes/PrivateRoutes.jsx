@@ -8,7 +8,7 @@ import Login from "../pages/Login/Login.jsx";
 import Sobre from "../pages/Sobre/Sobre.jsx";
 import Cadastro from "../pages/Cadastro/Cadastro.jsx";
 import LandPage from "../pages/LandPage/LandPage.jsx";
-import Header from '../components/Header.jsx';
+import Header from '../components/Header/Header.jsx';
 
 function PrivateRoutes() {
     return (

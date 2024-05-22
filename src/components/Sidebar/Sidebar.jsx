@@ -1,8 +1,8 @@
 import React, {useContext, useEffect} from "react";
-import NavButton from "./NavButton";
+import NavButton from "../NavButton/NavButton";
 import "./Sidebar.css"
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 function Sidebar() {
 
