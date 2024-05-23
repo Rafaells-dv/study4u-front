@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Cadastro.css";
+import { Input } from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
+import { Form } from "./style";
 
 function Cadastro() {
 
@@ -35,15 +37,15 @@ function Cadastro() {
     return (
         <>
             <main>
-                <form action="/cadastro" method="POST" id="cadastro-form" onSubmit={createUser}>
+                <Form onSubmit={createUser}>
                     <p className="title">Cadastre-se</p>
                     <div id="cadastro-inputs">
-                        <input className="text" type="text" name="name" placeholder="Nome:" onChange={handleChange}/>
-                        <input className="text" type="email" name="email" placeholder="Email:" onChange={handleChange}/>
-                        <input className="text" type="password" name="password" placeholder="Senha:" onChange={handleChange}/>
-                        <input className="text" type="submit" name="cadastrar" value="Cadastrar"/>
+                        <Input className="text" type="text" name="name" placeholder="Nome:" onChange={handleChange}/>
+                        <Input className="text" type="email" name="email" placeholder="Email:" onChange={handleChange}/>
+                        <Input className="text" type="password" name="password" placeholder="Senha:" onChange={handleChange}/>
+                        <Button className="text cadastro-input" name="cadastrar">Cadastrar</Button>
                     </div>
-                </form>
+                </Form>
             </main>
         </>
     )

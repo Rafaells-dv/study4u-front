@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
-import "./Login.css";
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { Input } from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
+import { Form, ContainerInput } from "./style.js";
 
 function Login() {
 
@@ -91,22 +93,22 @@ function Login() {
     return (
     <>
         <main>
-            <form id="login-form" onSubmit={handleLogin}>
-                <article className="title">
-                    <p id="login-title">Study4U</p>
+            <Form onSubmit={handleLogin}>
+                <article>
+                    <p className="title">Study4U</p>
                     <p className="text">Comece a mudar o seu futuro.</p>
                 </article>
-                <div id="login-inputs">
+                <ContainerInput>
                     <p className="title">Login</p>
-                        <input className="text" type="email" name="email" placeholder="Email:" onChange={handleChange} />
-                        <input className="text" type="password" name="password" placeholder="Senha:" onChange={handleChange} />
-                        <input className="text" type="submit" name="logar" value="Logar" />
+                    <Input className="text" type="email" name="email" placeholder="Email:" onChange={handleChange}/>
+                    <Input className="text" type="password" name="password" placeholder="Senha:" onChange={handleChange} />
+                    <Button className="text" type="submit" name="logar" value="Logar">Logar</Button>
                     <div className="text">
                         <a href="">Esqueceu sua senha?</a>
                         <a href="/cadastro">Cadastrar</a>
                     </div>
-                </div>
-            </form>
+                </ContainerInput>
+            </Form>
         </main>
     </>
     )

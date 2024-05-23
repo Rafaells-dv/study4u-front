@@ -1,8 +1,8 @@
 import React, {useContext, useEffect} from "react";
 import NavButton from "../NavButton/NavButton";
-import "./Sidebar.css"
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
+import { Nav } from "./style";
 
 function Sidebar() {
 
@@ -34,14 +34,14 @@ function Sidebar() {
 
     return (
         <header>
-            <nav id="private">
+            <Nav id="private">
                 <h1 className="title">{user.name}</h1>
                 <div id="side-options">
                     <NavButton className="title" onClick={handleClick} name="home">Salas</NavButton>
                     <NavButton className="title" onClick={handleClick} name="criar-sala">Criar Salas</NavButton>
                 </div>
                 <NavButton type="button" className="title" value="Logout" onClick={logout}>Logout</NavButton>
-            </nav>
+            </Nav>
         </header>
     )
     
