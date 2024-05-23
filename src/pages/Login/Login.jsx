@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { UserContext } from "../../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
-import { Input } from "../../components/Input/style.js";
+import { Input } from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { Form, ContainerInput } from "./style.js";
 

@@ -1,11 +1,11 @@
 import React from "react"
-import "./Sobre.css"
+import { Article } from "./style";
 
 function Sobre() {
     return (
         <>
             <main>
-                <article id="sobre">
+                <Article id="sobre">
                     <h1 className="title">
                         Sobre nós
                     </h1>
@@ -15,7 +15,7 @@ function Sobre() {
                     <p className="text">
                         Feito por: Gabriel Antonio Veiga, Ian Bailone, Lucas Venturin, Rafael Leonardo e Vinicyus Hartmann.
                     </p>
-                </article>
+                </Article>
             </main>
         </>
     )

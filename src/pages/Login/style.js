@@ -19,7 +19,6 @@ export const Form = styled.form`
         color: var(--dark-blue-2);
         font-size: 2rem;
     }
-
 `;
 
 export const ContainerInput = styled.div`
@@ -55,4 +54,4 @@ export const ContainerInput = styled.div`
         padding: 0.5rem;
     }
 
-`
+`;
