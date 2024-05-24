@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx"
 import ConteudoCard from "../../components/ConteudoCard/ConteudoCard.jsx"
 import Button from "../../components/Button/Button.jsx";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import DynamicForm from "../../components/DynamicForm/DynamicForm.jsx";
 import { Container } from "../../components/Container/Container.jsx";
 import { Conteudos, Options, SalaContainer } from "./style.js";
+import { UserContext } from "../../contexts/UserContext.jsx";
+import ConfirmDelete from "../../components/ConfirmDelete/ConfirmDelete.jsx";
+import DeleteButton from "../../components/DeleteButton/DeleteButton.jsx";
+
 
 function Sala() {
 
     const [showForm, setShowForm] = useState(false)
     const [classDetail, setClassDetail] = useState({})
     const [conteudos , setConteudos] = useState([])
+    const [isCreator, setIsCreator] = useState(false)
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false)
 
+    const {user} = useContext(UserContext)
     const { id } = useParams()
+    const navigate = useNavigate()
 
     const classDetails = async () => {
         const requestClass = await fetch(`http://localhost:8080/turmas/consultar-turma/${id}`, {
@@ -27,7 +35,13 @@ function Sala() {
         if (requestClass.ok) {
             const classDetail = await requestClass.json(); // Transforma a resposta em JSON
             setClassDetail(classDetail)
-            
+
+            if (classDetail.criador.id == user.id) {
+                setIsCreator(true)
+            } else {
+                setIsCreator(false)
+            }
+
         } else {  
             console.error('Erro ao criar sala:', response.statusText);
         }
@@ -61,6 +75,24 @@ function Sala() {
         setShowForm(true)
     }
 
+    function confirmDelete() {
+        setShowConfirmDelete(true)
+    }
+    
+    function handleDelete(event) {
+        event.preventDefault()
+        console.log("deletar")
+        setShowConfirmDelete(false)
+        navigate("/home")
+    }
+
+    function handleCancel(event) {
+        event.preventDefault()
+        console.log("cancelar")
+        setShowForm(false)
+        setShowConfirmDelete(false)
+    }
+
     //Tratamento do formulário
     const [form, setForm] = useState({});
 
@@ -86,13 +118,7 @@ function Sala() {
         setShowForm(false)
     }
 
-    function handleCancel(event) {
-        event.preventDefault()
-        console.log("cancelar")
-        setShowForm(false)
-    }
-
-    const fields = [
+    const addConteudoFields = [
         {
             name: "tituloConteudo", 
             type: "text", 
@@ -107,7 +133,7 @@ function Sala() {
         },
     ]
 
-    const buttons = [
+    const addConteudoButtons = [
         {
             text: "Adicionar",
             function: handleAdd,
@@ -118,17 +144,36 @@ function Sala() {
         }
     ]
 
+    const deleteSalaButtons = [
+        {
+            text: "Sim",
+            function: handleDelete,
+        },
+        {
+            text: "Não",
+            function: handleCancel,
+        }
+    ]
+
+    const delteTitle = "Deseja realmente excluir a sala?"
 
     return (
         <>
             <Container>
                 <Sidebar />
                 {showForm && (
-                    <DynamicForm fields={fields} buttons={buttons} 
+                    <DynamicForm fields={addConteudoFields} buttons={addConteudoButtons} 
                         handleAdd={handleAdd} handleCancel={handleCancel} 
                         form={form} setForm={setForm}
                     />
                 )}
+                {showConfirmDelete && (
+                    <ConfirmDelete text={delteTitle} buttons={deleteSalaButtons} 
+                        handleAdd={handleAdd} handleCancel={handleCancel} 
+                        form={form} setForm={setForm}
+                    />
+                )}
+
                 <SalaContainer>
                     <article>
                         <h1 className="title">{classDetail.titulo}</h1>
@@ -142,10 +187,13 @@ function Sala() {
                         ))}
                     </Conteudos>
                     <Options>
-                        <Button onClick={addConteudo}>Adicionar Conteudo</Button>
+                        {isCreator && <Button onClick={addConteudo}>Adicionar Conteudo</Button>}
                         <div>
-                            <Button type="button" name="excluir" >Excluir</Button>
-                            <Button type="button" name="sairSala" >Sair da sala</Button>
+                            {isCreator ? 
+                                <DeleteButton onClick={confirmDelete} />
+                            : 
+                                <Button type="button" name="sairSala" >Sair da sala</Button>
+                            }
                         </div>
                     </Options>
                 </SalaContainer>
