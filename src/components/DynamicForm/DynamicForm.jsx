@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Input } from "../Input/Input";
+import Button from "../Button/Button";
+import { FormContainer, Form } from './style';
 
 function DynamicForm({ fields, buttons, form, setForm, idForm}) {
 
@@ -10,33 +13,35 @@ function DynamicForm({ fields, buttons, form, setForm, idForm}) {
     };
 
     return (
-        <form id={idForm}>
-            {fields.map(field => (
-                field.tag === 'input' ? (
-                    <input className='title'
-                        key={field.name}
-                        type={field.type}
-                        name={field.name}
-                        placeholder={field.placeholder}
-                        onChange={handleChange}
-                    />
-                ) : (
-                    <textarea className='text'
-                        key={field.name}
-                        name={field.name}
-                        placeholder={field.placeholder}
-                        onChange={handleChange}
-                    />
-                )
-            ))}
+        <FormContainer>
+            <Form>
+                {fields.map(field => (
+                    field.tag === 'input' ? (
+                        <Input className='title'
+                            key={field.name}
+                            type={field.type}
+                            name={field.name}
+                            placeholder={field.placeholder}
+                            onChange={handleChange}
+                        />
+                    ) : (
+                        <textarea className='text'
+                            key={field.name}
+                            name={field.name}
+                            placeholder={field.placeholder}
+                            onChange={handleChange}
+                        />
+                    )
+                ))}
 
-            {buttons.map(button => (
-                <button key={button.text} onClick={(event) => button.function(event)} value={button.text}>
-                    {button.text}
-                </button>
-            ))}
-            
-        </form>
+                {buttons.map(button => (
+                    <Button key={button.text} onClick={(event) => button.function(event)} id={button.text}>
+                        {button.text}
+                    </Button>
+                ))}
+                
+            </Form>
+        </FormContainer>
     );
 }
 
