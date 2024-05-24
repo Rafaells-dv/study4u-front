@@ -1,9 +1,10 @@
 import React from "react";
 import "./ConteudoCard.css"
+import DeleteButton from "../DeleteButton/DeleteButton";
 
-function ConteudoCard(conteudo) {
+function ConteudoCard({ idConteudo, titulo, descricao, data, confirmDeleteConteudo }) {
 
-    const date = new Date(conteudo.data);
+    const date = new Date(data);
     const day = date.getDate();
     let month = date.getMonth() + 1; // getMonth() retorna um valor de 0 a 11, então adicionamos 1
     const year = date.getFullYear();
@@ -18,11 +19,12 @@ function ConteudoCard(conteudo) {
         <a>
             <div id="card-conteudo">
                 <div id="dados-conteudo">
-                    <h1 className="title" id="title-conteudo">{conteudo.titulo}</h1>
+                    <h1 className="title" id="title-conteudo">{titulo}</h1>
                     <p className="text" id="date-conteudo">{formattedDate}</p>
                 </div>
                 <div style={{ borderBottom: '1px solid black', marginBottom: '10px', width: '98%', alignSelf: 'center' }}></div>
-                <p className="text" id="text-conteudo">{conteudo.descricao}</p>
+                <p className="text" id="text-conteudo">{descricao}</p>
+                <DeleteButton onClick={() => {confirmDeleteConteudo(idConteudo, titulo)}} />
             </div>
         </a>
     )
