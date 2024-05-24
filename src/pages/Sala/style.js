@@ -49,7 +49,12 @@ export const Options = styled.div`
         align-self: flex-start;
     }
 
-    div > * {
+    div {
+        display: flex;
+        align-items: center;
+    }
+
+    div > button {
         background-color: var(--red) !important;
     }
 `;
