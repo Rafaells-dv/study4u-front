@@ -125,12 +125,10 @@ function Sala() {
             <div id="private">
                 <Sidebar />
                 {showForm && (
-                    <div id="form-popup">
-                        <DynamicForm idForm="add-conteudo" fields={fields} buttons={buttons} 
-                            handleAdd={handleAdd} handleCancel={handleCancel} 
-                            form={form} setForm={setForm}
-                        />
-                    </div>
+                    <DynamicForm idForm="add-conteudo" fields={fields} buttons={buttons} 
+                        handleAdd={handleAdd} handleCancel={handleCancel} 
+                        form={form} setForm={setForm}
+                    />
                 )}
                 <div id="sala">
                     <article>
