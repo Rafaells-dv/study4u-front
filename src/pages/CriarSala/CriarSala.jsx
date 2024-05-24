@@ -1,8 +1,11 @@
 import React, { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx"
-import "./CriarSala.css"
 import { useNavigate } from "react-router-dom";
+import { Input } from "../../components/Input/Input.jsx";
+import Button from "../../components/Button/Button.jsx";
+import { Form, FormContainer } from "./style.js";
+import { Container } from "../../components/Container/Container.jsx";
 
 function CriarSala() {
 
@@ -49,17 +52,17 @@ function CriarSala() {
     
     return (
         <>
-            <div id="private">
+            <Container>
                 <Sidebar />
-                <div id="criar-sala">
+                <Form action="/criar-sala" method="POST" onSubmit={createTurma}>
                     <h1 className="title">Crie sua sala!</h1>
-                    <form action="/criar-sala" method="POST" onSubmit={createTurma}>
-                        <input type="text" className="title" name="tituloSala" placeholder="Titulo da sala" onChange={handleChange}/>
+                    <FormContainer>
+                        <Input type="text" className="title" name="tituloSala" placeholder="Titulo da sala" onChange={handleChange}/>
                         <textarea type="text" className="text" name="descricaoSala" placeholder="Descrição da sala" onChange={handleChange}/>
-                        <input type="submit" className="text" name="criaSala" value="Criar sala"/>
-                    </form>
-                </div>
-            </div>
+                        <Button type="submit" className="text" name="criaSala">Criar sala</Button>
+                    </FormContainer>
+                </Form>
+            </Container>
         </>
     )
 }
