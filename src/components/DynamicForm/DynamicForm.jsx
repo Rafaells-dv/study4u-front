@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Input } from "../Input/Input";
 import Button from "../Button/Button";
 import { FormContainer, Form } from './style';
+import { TextArea } from '../TextArea/TextArea';
 
 function DynamicForm({ fields, buttons, form, setForm}) {
 
@@ -25,7 +26,7 @@ function DynamicForm({ fields, buttons, form, setForm}) {
                             onChange={handleChange}
                         />
                     ) : (
-                        <textarea className='text'
+                        <TextArea className='text'
                             key={field.name}
                             name={field.name}
                             placeholder={field.placeholder}

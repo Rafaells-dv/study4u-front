@@ -6,6 +6,7 @@ import { Input } from "../../components/Input/Input.jsx";
 import Button from "../../components/Button/Button.jsx";
 import { Form, FormContainer } from "./style.js";
 import { Container } from "../../components/Container/Container.jsx";
+import { TextArea } from "../../components/TextArea/TextArea.jsx";	
 
 function CriarSala() {
 
@@ -13,7 +14,7 @@ function CriarSala() {
 
     const [form, setForm] = useState({tituloSala: '', descricaoSala: ''});    
     
-    const {setUser, user} = useContext(UserContext);
+    const {user} = useContext(UserContext);
 
     function handleChange(event) {
         setForm({...form, [event.target.name]: event.target.value});
@@ -58,7 +59,7 @@ function CriarSala() {
                     <h1 className="title">Crie sua sala!</h1>
                     <FormContainer>
                         <Input type="text" className="title" name="tituloSala" placeholder="Titulo da sala" onChange={handleChange}/>
-                        <textarea type="text" className="text" name="descricaoSala" placeholder="Descrição da sala" onChange={handleChange}/>
+                        <TextArea type="text" className="text" name="descricaoSala" placeholder="Descrição da sala" onChange={handleChange}/>
                         <Button type="submit" className="text" name="criaSala">Criar sala</Button>
                     </FormContainer>
                 </Form>
