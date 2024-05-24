@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx"
 import ConteudoCard from "../../components/ConteudoCard/ConteudoCard.jsx"
 import Button from "../../components/Button/Button.jsx";
-import "./Sala.css"
 import { useParams } from "react-router-dom";
 import DynamicForm from "../../components/DynamicForm/DynamicForm.jsx";
+import { Container } from "../../components/Container/Container.jsx";
+import { Conteudos, Options, SalaContainer } from "./style.js";
 
 function Sala() {
 
@@ -25,7 +26,6 @@ function Sala() {
 
         if (requestClass.ok) {
             const classDetail = await requestClass.json(); // Transforma a resposta em JSON
-
             setClassDetail(classDetail)
             
         } else {  
@@ -44,7 +44,6 @@ function Sala() {
 
         if (requestConteudo.ok) {
             const conteudoList = await requestConteudo.json();
-            console.log(conteudoList)
             setConteudos(conteudoList);
 
         } else {
@@ -122,35 +121,35 @@ function Sala() {
 
     return (
         <>
-            <div id="private">
+            <Container>
                 <Sidebar />
                 {showForm && (
-                    <DynamicForm idForm="add-conteudo" fields={fields} buttons={buttons} 
+                    <DynamicForm fields={fields} buttons={buttons} 
                         handleAdd={handleAdd} handleCancel={handleCancel} 
                         form={form} setForm={setForm}
                     />
                 )}
-                <div id="sala">
+                <SalaContainer>
                     <article>
                         <h1 className="title">{classDetail.titulo}</h1>
                         <p className="text" id="desc-sala">{classDetail.descricao}</p>
                     </article>
-                    <div id="conteudos">
+                    <Conteudos>
                         {conteudos.map((conteudo) => (
                             <div key={conteudo.id} style={{'width': '100%'}}>
                                 <ConteudoCard titulo={conteudo.titulo} descricao={conteudo.descricao} data={conteudo.dataCriacao}/>
                             </div>
                         ))}
-                    </div>
-                    <div id="sala-options">
+                    </Conteudos>
+                    <Options>
                         <Button onClick={addConteudo}>Adicionar Conteudo</Button>
                         <div>
-                            <input type="button" name="excluir" value="Excluir" />
-                            <input type="button" name="sairSala" value="Sair da sala" />
+                            <Button type="button" name="excluir" >Excluir</Button>
+                            <Button type="button" name="sairSala" >Sair da sala</Button>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </Options>
+                </SalaContainer>
+            </Container>
         </>
     )
 }

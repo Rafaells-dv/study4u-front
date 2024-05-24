@@ -1,11 +1,13 @@
 import React, {useContext, useEffect, useState, useMemo} from "react";
 import Sidebar from "../../components/Sidebar/Sidebar.jsx"
-import "./Home.css"
 import { useNavigate } from "react-router-dom";
 import Salas from "../../components/Salas/Salas.jsx";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import Loader from "../../components/Loader/Loader.jsx";
 import Button from "../../components/Button/Button.jsx";
+import { Container } from "../../components/Container/Container.jsx";
+import { Input } from "../../components/Input/Input.jsx";
+import { GrupoSalas, HomeContainer, HomeInputs, SalasNotFound } from "./style.js";
 
 function Home() {
 
@@ -59,14 +61,14 @@ function Home() {
     
     return (
         <>
-        <div id="private">
+        <Container>
             <Sidebar />
-            <div id="home">
-                <div id="home-inputs">
-                    <input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={event => setSearch(event.target.value)} value={search}/>
+            <HomeContainer>
+                <HomeInputs>
+                    <Input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={event => setSearch(event.target.value)} value={search}/>
                     <Button>Nova Sala</Button>
-                </div>
-                <div className="grupo-salas">
+                </HomeInputs>
+                <GrupoSalas>
                     {search.length > 0 ? (
                         filteredSalas.length > 0 ? (
                             filteredSalas.map(sala => (
@@ -78,13 +80,13 @@ function Home() {
                                 </div>
                             ))
                         ) : ( 
-                            <div id="salas-notfound">
+                            <SalasNotFound>
                                 {isLoading ? (
                                     <Loader />
                                 ) : (
                                     <p className="text">Nenhuma sala encontrada.</p>
                                 )}
-                            </div>
+                            </SalasNotFound>
                         )
                     ) : (
                         salas.map((sala) => (
@@ -97,9 +99,9 @@ function Home() {
                         ))
                     )}
                         
-                </div>
-            </div>
-        </div>
+                </GrupoSalas>
+            </HomeContainer>
+        </Container>
         </>
     )
 }

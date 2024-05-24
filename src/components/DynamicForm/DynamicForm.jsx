@@ -3,7 +3,7 @@ import { Input } from "../Input/Input";
 import Button from "../Button/Button";
 import { FormContainer, Form } from './style';
 
-function DynamicForm({ fields, buttons, form, setForm, idForm}) {
+function DynamicForm({ fields, buttons, form, setForm}) {
 
     const handleChange = (e) => {
         setForm({
