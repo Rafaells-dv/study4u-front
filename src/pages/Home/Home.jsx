@@ -8,6 +8,7 @@ import Button from "../../components/Button/Button.jsx";
 import { Container } from "../../components/Container/Container.jsx";
 import { Input } from "../../components/Input/Input.jsx";
 import { GrupoSalas, HomeContainer, HomeInputs, SalasNotFound } from "./style.js";
+import DynamicForm from "../../components/DynamicForm/DynamicForm.jsx";
 
 function Home() {
 
@@ -16,6 +17,7 @@ function Home() {
     const [search, setSearch] = useState('')
     const [salas, setSalas] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [showFormNovaSala, setShowFormNovaSala] = useState(false)
 
     const {user} = useContext(UserContext)
 
@@ -34,9 +36,9 @@ function Home() {
         }
     }, [filteredSalas]);
 
-    useEffect(()=>{
+    async function getSalas() {
         try {
-            fetch(`http://localhost:8080/turmas/usuario/${user.id}`, {
+            await fetch(`http://localhost:8080/turmas/usuario/${user.id}`, {
                 method: 'GET',
                 headers: {
                   'Content-Type': 'application/json',
@@ -55,18 +57,63 @@ function Home() {
         } catch(error) {
             console.log(error)
         }
-
+    }
+    useEffect(()=>{
+        getSalas()
     }, [])
 
+    //Form nova sala configs
+    const [form, setForm] = useState({});
+
+    async function enterClass(event) {
+        event.preventDefault()
+        console.log(form)
+
+        const request = await fetch(`http://localhost:8080/turmas/${form.idSala}/atribuir-usuario?usuarioId=${user.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem('token')
+            }
+        })
+
+        if (request.ok) {
+            const data = request.json()
+            getSalas()
+            setShowFormNovaSala(false)
+        } else (error) => {
+            console.log(error)
+        }
+    }
     
+    const fieldsNovaSala = [
+        {
+            name: "idSala", 
+            type: "text", 
+            placeholder: "Código da sala que deseja entrar.", 
+            tag: "input"
+        }
+    ]
+
+    const buttonsNovaSala = [
+        {
+            text: "Entrar",
+            function: enterClass
+        }
+    ]
     return (
         <>
         <Container>
             <Sidebar />
+            {showFormNovaSala && (
+                <DynamicForm fields={fieldsNovaSala} buttons={buttonsNovaSala}
+                form={form} setForm={setForm}
+                />
+            )}
             <HomeContainer>
                 <HomeInputs>
                     <Input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={event => setSearch(event.target.value)} value={search}/>
-                    <Button>Nova Sala</Button>
+                    <Button onClick={() => setShowFormNovaSala(true)}>Nova Sala</Button>
                 </HomeInputs>
                 <GrupoSalas>
                     {search.length > 0 ? (
