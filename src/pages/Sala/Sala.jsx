@@ -17,7 +17,9 @@ function Sala() {
     const [classDetail, setClassDetail] = useState({})
     const [conteudos , setConteudos] = useState([])
     const [isCreator, setIsCreator] = useState(false)
-    const [showConfirmDelete, setShowConfirmDelete] = useState(false)
+    const [showConfirmDeleteSala, setShowConfirmDeleteSala] = useState(false)
+    const [showConfirmDeleteConteudo, setShowConfirmDeleteConteudo] = useState(false)
+    const [conteudoDelete, setConteudoDelete] = useState({})
 
     const {user} = useContext(UserContext)
     const { id } = useParams()
@@ -34,6 +36,7 @@ function Sala() {
 
         if (requestClass.ok) {
             const classDetail = await requestClass.json(); // Transforma a resposta em JSON
+            console.log(classDetail)
             setClassDetail(classDetail)
 
             if (classDetail.criador.id == user.id) {
@@ -75,22 +78,36 @@ function Sala() {
         setShowForm(true)
     }
 
-    function confirmDelete() {
-        setShowConfirmDelete(true)
+    function confirmDeleteSala() {
+        setShowConfirmDeleteSala(true)
+    }
+
+    function confirmDeleteConteudo(idConteudo ,tituloConteudo) {
+        setShowConfirmDeleteConteudo(true)
+        setConteudoDelete({
+            id: idConteudo,
+            titulo: tituloConteudo
+        })
     }
     
-    function handleDelete(event) {
+    async function handleDeleteSala(event) {
         event.preventDefault()
-        console.log("deletar")
-        setShowConfirmDelete(false)
+        setShowConfirmDeleteSala(false)
         navigate("/home")
+    }
+
+    async function handleDeleteConteudo(event) {
+        event.preventDefault()
+        console.log(conteudoDelete)
+        setShowConfirmDeleteConteudo(false)
     }
 
     function handleCancel(event) {
         event.preventDefault()
         console.log("cancelar")
         setShowForm(false)
-        setShowConfirmDelete(false)
+        setShowConfirmDeleteSala(false)
+        setShowConfirmDeleteConteudo(false)
     }
 
     //Tratamento do formulário
@@ -118,6 +135,7 @@ function Sala() {
         setShowForm(false)
     }
 
+    //Formulário de adicionar conteúdo
     const addConteudoFields = [
         {
             name: "tituloConteudo", 
@@ -144,10 +162,11 @@ function Sala() {
         }
     ]
 
+    //Formulário de deletar sala
     const deleteSalaButtons = [
         {
             text: "Sim",
-            function: handleDelete,
+            function: handleDeleteSala,
         },
         {
             text: "Não",
@@ -155,25 +174,41 @@ function Sala() {
         }
     ]
 
-    const delteTitle = "Deseja realmente excluir a sala?"
+    const deleteSalaTitle = "Deseja realmente excluir a sala?"
+
+    //Formulário de deletar conteúdo
+    const deleteConteudoButtons = [
+        {
+            text: "Sim",
+            function: handleDeleteConteudo,
+        },
+        {
+            text: "Não",
+            function: handleCancel,
+        }
+    ]
+
+    const deleteConteudoTitle = `Deseja realmente excluir o conteúdo ${conteudoDelete.titulo}?`
 
     return (
         <>
             <Container>
                 <Sidebar />
                 {showForm && (
-                    <DynamicForm fields={addConteudoFields} buttons={addConteudoButtons} 
-                        handleAdd={handleAdd} handleCancel={handleCancel} 
+                    <DynamicForm fields={addConteudoFields} buttons={addConteudoButtons}
                         form={form} setForm={setForm}
                     />
                 )}
-                {showConfirmDelete && (
-                    <ConfirmDelete text={delteTitle} buttons={deleteSalaButtons} 
-                        handleAdd={handleAdd} handleCancel={handleCancel} 
+                {showConfirmDeleteSala && (
+                    <ConfirmDelete text={deleteSalaTitle} buttons={deleteSalaButtons} 
                         form={form} setForm={setForm}
                     />
                 )}
-
+                {showConfirmDeleteConteudo && (
+                    <ConfirmDelete text={deleteConteudoTitle} buttons={deleteConteudoButtons} 
+                        form={form} setForm={setForm}
+                    />
+                )}
                 <SalaContainer>
                     <article>
                         <h1 className="title">{classDetail.titulo}</h1>
@@ -181,16 +216,22 @@ function Sala() {
                     </article>
                     <Conteudos>
                         {conteudos.map((conteudo) => (
-                            <div key={conteudo.id} style={{'width': '100%'}}>
-                                <ConteudoCard titulo={conteudo.titulo} descricao={conteudo.descricao} data={conteudo.dataCriacao}/>
-                            </div>
+                            isCreator ? (
+                                <div key={conteudo.id} style={{'width': '100%'}}>
+                                    <ConteudoCard idConteudo={conteudo.id} titulo={conteudo.titulo} descricao={conteudo.descricao} data={conteudo.dataCriacao} confirmDeleteConteudo={confirmDeleteConteudo}/>
+                                </div>
+                            ) : (
+                                <div key={conteudo.id} style={{'width': '100%'}}>
+                                    <ConteudoCard titulo={conteudo.titulo} descricao={conteudo.descricao} data={conteudo.dataCriacao}/>
+                                </div>
+                            )
                         ))}
                     </Conteudos>
                     <Options>
                         {isCreator && <Button onClick={addConteudo}>Adicionar Conteudo</Button>}
                         <div>
                             {isCreator ? 
-                                <DeleteButton onClick={confirmDelete} />
+                                <DeleteButton onClick={confirmDeleteSala} />
                             : 
                                 <Button type="button" name="sairSala" >Sair da sala</Button>
                             }
