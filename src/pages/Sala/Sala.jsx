@@ -12,13 +12,14 @@ import DeleteButton from "../../components/DeleteButton/DeleteButton.jsx";
 
 function Sala() {
     
-    const [showForm, setShowForm] = useState(false)
+    const [showFormAddConteudo, setShowFormAddConteudo] = useState(false)
     const [classDetail, setClassDetail] = useState({})
     const [conteudos , setConteudos] = useState([])
     const [isCreator, setIsCreator] = useState(false)
     const [showConfirmDeleteSala, setShowConfirmDeleteSala] = useState(false)
     const [showConfirmDeleteConteudo, setShowConfirmDeleteConteudo] = useState(false)
     const [conteudoDelete, setConteudoDelete] = useState({})
+    const [showConfirmExitSala, setShowConfirmExitSala] = useState(false)
     const [form, setForm] = useState({});
 
     const {user} = useContext(UserContext)
@@ -76,9 +77,6 @@ function Sala() {
     }, [])
 
     //Funções de Sala
-    function confirmDeleteSala() {
-        setShowConfirmDeleteSala(true)
-    }
     
     async function handleDeleteSala(event) {
         event.preventDefault()
@@ -98,11 +96,33 @@ function Sala() {
             console.log(error)
         }   
     }
+
+    async function exitClass(event) {
+        event.preventDefault()
+        console.log("sair da sala")
+        console.log(
+            {
+                idSala: id,
+                idUsuario: user.id
+            }
+        )
+        const requestExitClass = await fetch(`http://localhost:8080/turmas/${id}/remover-usuario?usuarioId=${user.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
+
+        if (requestExitClass.ok) {
+            setShowConfirmExitSala(false)
+            navigate("/home")
+        } else(error) => {
+            console.log(error)
+        }
+    }
     
     //Funções de Conteúdo
-    function addConteudo() {
-        setShowForm(true)
-    }
 
     async function handleAddConteudo(event) {
         event.preventDefault()
@@ -160,14 +180,15 @@ function Sala() {
     function handleCancel(event) {
         event.preventDefault()
         console.log("cancelar")
-        setShowForm(false)
+        setShowFormAddConteudo(false)
         setShowConfirmDeleteSala(false)
         setShowConfirmDeleteConteudo(false)
+        setShowConfirmExitSala(false)
     }
 
     //Tratamento de formulários
 
-    //Formulário de adicionar conteúdo
+    //Adicionar conteúdo
     const addConteudoFields = [
         {
             name: "tituloConteudo", 
@@ -194,21 +215,7 @@ function Sala() {
         }
     ]
 
-    //Formulário de deletar sala
-    const deleteSalaButtons = [
-        {
-            text: "Sim",
-            function: handleDeleteSala,
-        },
-        {
-            text: "Não",
-            function: handleCancel,
-        }
-    ]
-
-    const deleteSalaTitle = "Deseja realmente excluir a sala?"
-
-    //Formulário de deletar conteúdo
+    //Confirmar deletar conteúdo
     const deleteConteudoButtons = [
         {
             text: "Sim",
@@ -222,22 +229,58 @@ function Sala() {
 
     const deleteConteudoTitle = `Deseja realmente excluir o conteúdo ${conteudoDelete.titulo}?`
 
+    //Confirmar deletar sala
+    const deleteSalaButtons = [
+        {
+            text: "Sim",
+            function: handleDeleteSala,
+        },
+        {
+            text: "Não",
+            function: handleCancel,
+        }
+    ]
+
+    const deleteSalaTitle = "Deseja realmente excluir a sala?"
+
+    //Confirmar saída da sala
+    const exitClassButtons = [
+        {
+            text: "Sim",
+            function: exitClass,
+        },
+        {
+            text: "Não",
+            function: handleCancel,
+        }
+    ]
+
+    const exitClassTitle = `Deseja realmente sair da sala?`
+
     return (
         <>
             <Container>
                 <Sidebar />
-                {showForm && (
+                {showFormAddConteudo && (
                     <DynamicForm fields={addConteudoFields} buttons={addConteudoButtons}
                         form={form} setForm={setForm}
                     />
                 )}
+
                 {showConfirmDeleteSala && (
                     <ConfirmDelete text={deleteSalaTitle} buttons={deleteSalaButtons} 
                         form={form} setForm={setForm}
                     />
                 )}
+
                 {showConfirmDeleteConteudo && (
                     <ConfirmDelete text={deleteConteudoTitle} buttons={deleteConteudoButtons} 
+                        form={form} setForm={setForm}
+                    />
+                )}
+
+                {showConfirmExitSala && (
+                    <ConfirmDelete text={exitClassTitle} buttons={exitClassButtons} 
                         form={form} setForm={setForm}
                     />
                 )}
@@ -270,12 +313,12 @@ function Sala() {
                         ))}
                     </Conteudos>
                     <Options>
-                        {isCreator && <Button onClick={addConteudo}>Adicionar Conteudo</Button>}
+                        {isCreator && <Button onClick={()=> setShowFormAddConteudo(true)}>Adicionar Conteudo</Button>}
                         <div>
                             {isCreator ? 
-                                <DeleteButton onClick={confirmDeleteSala} />
+                                <DeleteButton onClick={() => setShowConfirmDeleteSala(true)} />
                             : 
-                                <Button type="button" name="sairSala" >Sair da sala</Button>
+                                <Button type="button" name="sairSala" onClick={()=> setShowConfirmExitSala(true)}>Sair da sala</Button>
                             }
                         </div>
                     </Options>
