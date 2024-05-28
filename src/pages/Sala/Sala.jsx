@@ -146,7 +146,7 @@ function Sala() {
         } else
         (error) => console.log(error)
         
-        setShowForm(false)
+        setShowFormAddConteudo(false)
     }
 
     function confirmDeleteConteudo(idConteudo, tituloConteudo) {
