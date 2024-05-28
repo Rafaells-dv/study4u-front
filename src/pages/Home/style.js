@@ -9,9 +9,7 @@ export const HomeContainer = styled.div`
     flex-direction: column;
 
     article {
-        position: relative;
-        top: 20%;
-        left: 35%;
+        align-self: center;
         color: var(--dark-blue-3);
         font-size: 1.5rem;
     }

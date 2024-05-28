@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import { FormContainer, Form } from './style';
 import { TextArea } from '../TextArea/TextArea';
 
-function DynamicForm({ fields, buttons, form, setForm}) {
+function DynamicForm({ fields, buttons, form, setForm, page}) {
 
     const handleChange = (e) => {
         setForm({
@@ -14,8 +14,8 @@ function DynamicForm({ fields, buttons, form, setForm}) {
     };
 
     return (
-        <FormContainer>
-            <Form>
+        <FormContainer >
+            <Form className={page}>
                 {fields.map(field => (
                     field.tag === 'input' ? (
                         <Input className='title'

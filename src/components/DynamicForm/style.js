@@ -18,6 +18,10 @@ export const Form = styled.form`
     height: 50%;
     width: 50%;
 
+    &.newclass {
+        justify-content: center;
+    }
+
     * {
         margin: 1rem;
         padding: 1rem;
@@ -40,6 +44,10 @@ export const Form = styled.form`
 
     #Cancelar {
         background-color: var(--red) !important;
+    }
+
+    #Cancelar:hover {
+        background-color: var(--dark-red) !important;
     }
 
 `;

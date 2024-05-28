@@ -8,6 +8,7 @@ import Button from "../../components/Button/Button.jsx";
 import { Container } from "../../components/Container/Container.jsx";
 import { Input } from "../../components/Input/Input.jsx";
 import { GrupoSalas, HomeContainer, HomeInputs, SalasNotFound } from "./style.js";
+import DynamicForm from "../../components/DynamicForm/DynamicForm.jsx";
 
 function Home() {
 
@@ -16,6 +17,8 @@ function Home() {
     const [search, setSearch] = useState('')
     const [salas, setSalas] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [showFormNewClass, setShowFormNewClass] = useState(false)
+    const [form, setForm] = useState({})
 
     const {user} = useContext(UserContext)
 
@@ -25,22 +28,13 @@ function Home() {
             : []
     }, [salas, search]);
     
-    useEffect(() => {
-        if (filteredSalas.length === 0) {
-            setIsLoading(true);
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 3000);
-        }
-    }, [filteredSalas]);
-
-    useEffect(()=>{
+    async function getSalas() {
         try {
-            fetch(`http://localhost:8080/turmas/usuario/${user.id}`, {
+            await fetch(`http://localhost:8080/turmas/usuario/${user.id}`, {
                 method: 'GET',
                 headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 },
                 }
             )
@@ -56,18 +50,85 @@ function Home() {
         } catch(error) {
             console.log(error)
         }
+    }
 
+    useEffect(() => {
+        if (filteredSalas.length === 0) {
+            setIsLoading(true);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 3000);
+        }
+    }, [filteredSalas]);
+
+    useEffect(()=>{
+        getSalas()
     }, [])
 
-    
+    async function enterClass(event) {
+        event.preventDefault()
+        console.log("entrar")
+        console.log(form.codigoSala)
+        const requestEnterClass = await fetch(`http://localhost:8080/turmas/${form.codigoSala}/atribuir-usuario?usuarioId=${user.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem("token")
+            }
+        })
+
+        if (requestEnterClass.ok) {
+            const data = await requestEnterClass.json()
+            getSalas()
+            setShowFormNewClass(false)
+        } else(error) => {
+            console.log(error)
+        }
+    }
+
+    function handleCancel(event) {
+        event.preventDefault()
+        console.log("cancelar")
+        setShowFormNewClass(false)
+    }
+    //
+    const newClassFields = [
+        {
+            name: "codigoSala", 
+            type: "text", 
+            placeholder: "Codigo da sala", 
+            tag: "input"
+        }
+    ]
+
+    const newClassButtons = [
+        {
+            text: "Entrar na sala",
+            function: enterClass,
+        },
+        {
+            text: "Cancelar",
+            function: handleCancel,
+        }
+    ]
+
     return (
         <>
         <Container>
             <Sidebar />
+            { showFormNewClass && 
+                <DynamicForm 
+                    fields={newClassFields}
+                    buttons={newClassButtons}
+                    form={form} 
+                    setForm={setForm}
+                    page="newclass"
+                />
+            } 
             <HomeContainer>
                 <HomeInputs>
                     <Input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={event => setSearch(event.target.value)} value={search}/>
-                    <Button>Nova Sala</Button>
+                    <Button onClick={() => setShowFormNewClass(true)}>Nova Sala</Button>
                 </HomeInputs>
                     {salas.length == 0 ? 
                         <article>
