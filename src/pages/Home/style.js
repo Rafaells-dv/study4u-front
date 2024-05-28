@@ -9,9 +9,7 @@ export const HomeContainer = styled.div`
     flex-direction: column;
 
     article {
-        position: relative;
-        top: 20%;
-        left: 35%;
+        align-self: center;
         color: var(--dark-blue-3);
         font-size: 1.5rem;
     }
@@ -39,6 +37,7 @@ export const GrupoSalas = styled.div`
 
 export const SalasNotFound = styled.div`
     grid-column: 2/3;
+    justify-self: center;
     text-align: center;
     font-size: 3rem;
     margin-top: 4rem;
