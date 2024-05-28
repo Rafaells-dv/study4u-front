@@ -7,6 +7,14 @@ export const HomeContainer = styled.div`
     background-color: var(--white);
     display: flex;
     flex-direction: column;
+
+    article {
+        position: relative;
+        top: 20%;
+        left: 35%;
+        color: var(--dark-blue-3);
+        font-size: 1.5rem;
+    }
 `;
 
 export const HomeInputs = styled.div`
