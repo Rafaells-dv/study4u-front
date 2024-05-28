@@ -49,6 +49,7 @@ function Home() {
                                 console.log(data)
                             } else {
                                 setSalas(data)
+                                console.log(salas.length)
                             }
                         }
             )
@@ -68,10 +69,34 @@ function Home() {
                     <Input type="search" className="text" name="pesquisar" placeholder="Pesquisar salas..." onChange={event => setSearch(event.target.value)} value={search}/>
                     <Button>Nova Sala</Button>
                 </HomeInputs>
-                <GrupoSalas>
-                    {search.length > 0 ? (
-                        filteredSalas.length > 0 ? (
-                            filteredSalas.map(sala => (
+                    {salas.length == 0 ? 
+                        <article>
+                            <h1 className="title">Você não possui salas.</h1>
+                            <p className="text">Crie ou entre em uma nova sala.</p>
+                        </article>
+                    : (
+                    <GrupoSalas>
+                        {search.length > 0 ? (
+                            filteredSalas.length > 0 ? (
+                                filteredSalas.map(sala => (
+                                    <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
+                                        <Salas
+                                            titulo={sala.titulo}
+                                            desc={sala.descricao}
+                                        />
+                                    </div>
+                                ))
+                            ) : ( 
+                                <SalasNotFound>
+                                    {isLoading ? (
+                                        <Loader />
+                                    ) : (
+                                        <p className="text">Nenhuma sala encontrada.</p>
+                                    )}
+                                </SalasNotFound>
+                            )
+                        ) : (
+                            salas.map((sala) => (
                                 <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
                                     <Salas
                                         titulo={sala.titulo}
@@ -79,27 +104,9 @@ function Home() {
                                     />
                                 </div>
                             ))
-                        ) : ( 
-                            <SalasNotFound>
-                                {isLoading ? (
-                                    <Loader />
-                                ) : (
-                                    <p className="text">Nenhuma sala encontrada.</p>
-                                )}
-                            </SalasNotFound>
-                        )
-                    ) : (
-                        salas.map((sala) => (
-                            <div key={sala.id} onClick={() => {navigate(`/sala/${sala.id}`)}} style={{cursor: 'pointer'}}>
-                                <Salas
-                                    titulo={sala.titulo}
-                                    desc={sala.descricao}
-                                />
-                            </div>
-                        ))
+                        )}
+                    </GrupoSalas>
                     )}
-                        
-                </GrupoSalas>
             </HomeContainer>
         </Container>
         </>
