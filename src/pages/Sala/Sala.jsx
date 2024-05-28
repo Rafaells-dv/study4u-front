@@ -10,9 +10,8 @@ import { UserContext } from "../../contexts/UserContext.jsx";
 import ConfirmDelete from "../../components/ConfirmDelete/ConfirmDelete.jsx";
 import DeleteButton from "../../components/DeleteButton/DeleteButton.jsx";
 
-
 function Sala() {
-
+    
     const [showForm, setShowForm] = useState(false)
     const [classDetail, setClassDetail] = useState({})
     const [conteudos , setConteudos] = useState([])
@@ -20,6 +19,7 @@ function Sala() {
     const [showConfirmDeleteSala, setShowConfirmDeleteSala] = useState(false)
     const [showConfirmDeleteConteudo, setShowConfirmDeleteConteudo] = useState(false)
     const [conteudoDelete, setConteudoDelete] = useState({})
+    const [form, setForm] = useState({});
 
     const {user} = useContext(UserContext)
     const { id } = useParams()
@@ -61,6 +61,7 @@ function Sala() {
 
         if (requestConteudo.ok) {
             const conteudoList = await requestConteudo.json();
+            console.log(conteudoList)
             setConteudos(conteudoList);
 
         } else {
@@ -74,20 +75,9 @@ function Sala() {
         getConteudos();
     }, [])
 
-    function addConteudo() {
-        setShowForm(true)
-    }
-
+    //Funções de Sala
     function confirmDeleteSala() {
         setShowConfirmDeleteSala(true)
-    }
-
-    function confirmDeleteConteudo(idConteudo ,tituloConteudo) {
-        setShowConfirmDeleteConteudo(true)
-        setConteudoDelete({
-            id: idConteudo,
-            titulo: tituloConteudo
-        })
     }
     
     async function handleDeleteSala(event) {
@@ -95,25 +85,13 @@ function Sala() {
         setShowConfirmDeleteSala(false)
         navigate("/home")
     }
-
-    async function handleDeleteConteudo(event) {
-        event.preventDefault()
-        console.log(conteudoDelete)
-        setShowConfirmDeleteConteudo(false)
+    
+    //Funções de Conteúdo
+    function addConteudo() {
+        setShowForm(true)
     }
 
-    function handleCancel(event) {
-        event.preventDefault()
-        console.log("cancelar")
-        setShowForm(false)
-        setShowConfirmDeleteSala(false)
-        setShowConfirmDeleteConteudo(false)
-    }
-
-    //Tratamento do formulário
-    const [form, setForm] = useState({});
-
-    async function handleAdd(event) {
+    async function handleAddConteudo(event) {
         event.preventDefault()
         
         const request = await fetch(`http://localhost:8080/conteudos?idTurma=${id}`, {
@@ -127,13 +105,54 @@ function Sala() {
                 descricao: form.descricaoConteudo,
             })
         })
-
+        
         if (request.ok) {
+            const data = await request.json()
+            console.log(data)
             getConteudos()
-        }
+        } else
+        (error) => console.log(error)
         
         setShowForm(false)
     }
+
+    function confirmDeleteConteudo(idConteudo, tituloConteudo) {
+        setShowConfirmDeleteConteudo(true)
+        setConteudoDelete({
+            id: idConteudo,
+            titulo: tituloConteudo
+        })
+    }
+
+    async function handleDeleteConteudo(event) {
+        event.preventDefault()
+        console.log("deletar conteudo");
+        console.log(conteudoDelete);
+
+        const resquestDeleteConteudo = await fetch(`http://localhost:8080/conteudos/${conteudoDelete.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem('token'),
+        }})
+        
+        if (resquestDeleteConteudo.ok) {
+            getConteudos()
+            setShowConfirmDeleteConteudo(false)
+        }
+    }
+
+    //Função de cancelar dos formulários
+    
+    function handleCancel(event) {
+        event.preventDefault()
+        console.log("cancelar")
+        setShowForm(false)
+        setShowConfirmDeleteSala(false)
+        setShowConfirmDeleteConteudo(false)
+    }
+
+    //Tratamento de formulários
 
     //Formulário de adicionar conteúdo
     const addConteudoFields = [
@@ -154,7 +173,7 @@ function Sala() {
     const addConteudoButtons = [
         {
             text: "Adicionar",
-            function: handleAdd,
+            function: handleAddConteudo,
         },
         {
             text: "Cancelar",
@@ -218,11 +237,21 @@ function Sala() {
                         {conteudos.map((conteudo) => (
                             isCreator ? (
                                 <div key={conteudo.id} style={{'width': '100%'}}>
-                                    <ConteudoCard idConteudo={conteudo.id} titulo={conteudo.titulo} descricao={conteudo.descricao} data={conteudo.dataCriacao} confirmDeleteConteudo={confirmDeleteConteudo}/>
+                                    <ConteudoCard 
+                                        idConteudo={conteudo.id} 
+                                        titulo={conteudo.titulo} 
+                                        descricao={conteudo.descricao} 
+                                        data={conteudo.dataCriacao} 
+                                        confirmDeleteConteudo={()=>confirmDeleteConteudo(conteudo.id, conteudo.titulo)}
+                                    />
                                 </div>
                             ) : (
                                 <div key={conteudo.id} style={{'width': '100%'}}>
-                                    <ConteudoCard titulo={conteudo.titulo} descricao={conteudo.descricao} data={conteudo.dataCriacao}/>
+                                    <ConteudoCard 
+                                        titulo={conteudo.titulo}
+                                        descricao={conteudo.descricao} 
+                                        data={conteudo.dataCriacao}
+                                    />
                                 </div>
                             )
                         ))}
