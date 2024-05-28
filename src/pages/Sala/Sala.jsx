@@ -82,8 +82,21 @@ function Sala() {
     
     async function handleDeleteSala(event) {
         event.preventDefault()
-        setShowConfirmDeleteSala(false)
-        navigate("/home")
+        console.log("deletar sala")
+        console.log(id)
+        const requestDeleteSala = await fetch(`http://localhost:8080/turmas/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem('token'),
+        }})
+
+        if (requestDeleteSala.ok) {
+            setShowConfirmDeleteSala(false)
+            navigate("/home")
+        } else(error) => {
+            console.log(error)
+        }   
     }
     
     //Funções de Conteúdo
