@@ -37,6 +37,7 @@ export const GrupoSalas = styled.div`
 
 export const SalasNotFound = styled.div`
     grid-column: 2/3;
+    justify-self: center;
     text-align: center;
     font-size: 3rem;
     margin-top: 4rem;

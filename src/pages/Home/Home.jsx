@@ -27,6 +27,15 @@ function Home() {
             ? salas.filter(sala => sala.titulo.toLowerCase().includes(search.toLowerCase()))
             : []
     }, [salas, search]);
+
+    useEffect(() => {
+        if (filteredSalas.length === 0) {
+            setIsLoading(true);
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 3000);
+        }
+    }, [filteredSalas]);
     
     async function getSalas() {
         try {
@@ -53,15 +62,6 @@ function Home() {
     }
 
     useEffect(() => {
-        if (filteredSalas.length === 0) {
-            setIsLoading(true);
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 3000);
-        }
-    }, [filteredSalas]);
-
-    useEffect(()=>{
         getSalas()
     }, [])
 
@@ -78,7 +78,6 @@ function Home() {
         })
 
         if (requestEnterClass.ok) {
-            const data = await requestEnterClass.json()
             getSalas()
             setShowFormNewClass(false)
         } else(error) => {
