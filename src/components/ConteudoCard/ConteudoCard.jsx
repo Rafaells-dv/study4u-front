@@ -2,7 +2,7 @@ import React from "react";
 import "./ConteudoCard.css"
 import DeleteButton from "../DeleteButton/DeleteButton";
 
-function ConteudoCard({ idConteudo, titulo, descricao, data, confirmDeleteConteudo }) {
+function ConteudoCard({ idConteudo, titulo, descricao, data, confirmDeleteConteudo, isCreator}) {
 
     const date = new Date(data);
     const day = date.getDate();
@@ -24,7 +24,7 @@ function ConteudoCard({ idConteudo, titulo, descricao, data, confirmDeleteConteu
                 </div>
                 <div style={{ borderBottom: '1px solid black', marginBottom: '10px', width: '98%', alignSelf: 'center' }}></div>
                 <p className="text" id="text-conteudo">{descricao}</p>
-                <DeleteButton onClick={() => {confirmDeleteConteudo(idConteudo, titulo)}} />
+                { isCreator && <DeleteButton onClick={() => {confirmDeleteConteudo(idConteudo, titulo)}} />}
             </div>
         </a>
     )
