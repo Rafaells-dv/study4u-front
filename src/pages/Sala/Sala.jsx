@@ -290,26 +290,17 @@ function Sala() {
                         <p className="text" id="desc-sala">{classDetail.descricao}</p>
                     </article>
                     <Conteudos>
-                        {conteudos.map((conteudo) => (
-                            isCreator ? (
-                                <div key={conteudo.id} style={{'width': '100%'}}>
-                                    <ConteudoCard 
-                                        idConteudo={conteudo.id} 
-                                        titulo={conteudo.titulo} 
-                                        descricao={conteudo.descricao} 
-                                        data={conteudo.dataCriacao} 
-                                        confirmDeleteConteudo={()=>confirmDeleteConteudo(conteudo.id, conteudo.titulo)}
-                                    />
-                                </div>
-                            ) : (
-                                <div key={conteudo.id} style={{'width': '100%'}}>
-                                    <ConteudoCard 
-                                        titulo={conteudo.titulo}
-                                        descricao={conteudo.descricao} 
-                                        data={conteudo.dataCriacao}
-                                    />
-                                </div>
-                            )
+                        {conteudos.map((conteudo) => (   
+                            <div key={conteudo.id} style={{'width': '100%'}}>
+                                <ConteudoCard 
+                                    idConteudo={conteudo.id} 
+                                    titulo={conteudo.titulo} 
+                                    descricao={conteudo.descricao} 
+                                    data={conteudo.dataCriacao}
+                                    isCreator={isCreator}
+                                    confirmDeleteConteudo={()=>confirmDeleteConteudo(conteudo.id, conteudo.titulo)}
+                                />
+                            </div>
                         ))}
                     </Conteudos>
                     <Options>
