@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { Form, ContainerInput } from "./style.js";
+import { toast } from "react-toastify";
 
 function Login() {
 
@@ -45,8 +46,8 @@ function Login() {
  
                  if (response.token == "Acesso negado") {
  
-                     console.log("email ou senha incorretos")
- 
+                    console.log("email ou senha incorretos")
+                    toast.error("Email ou senha incorretos!")
                  } else {
  
                      localStorage.setItem('token', response.token)
@@ -69,10 +70,12 @@ function Login() {
                              "name": user.nome,
                              "email": user.email,
                          })
- 
+                        
+                         toast.success("Login efetuado com sucesso!")
                          navigate("/home")
  
                      } else {
+                        toast.error("Erro ao fazer login!")
                          console.log(request.error)
                      }
                      
@@ -80,11 +83,13 @@ function Login() {
                  
  
              } else {
-                 console.error('Erro ao fazer login:', response.statusText);
+                toast.error("Erro ao fazer login!")
+                console.error('Erro ao fazer login:', response.statusText);
              }
  
          } catch (error) {
-             console.error('Erro ao fazer login:', error);
+            toast.error("Erro ao fazer login!")
+            console.error('Erro ao fazer login:', error);
          }
  
      }

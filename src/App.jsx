@@ -5,15 +5,20 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import PublicRoutes  from './routes/PublicRoutes';
 import  PrivateRoutes  from './routes/PrivateRoutes';
 import { AuthContext } from './contexts/AuthContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 
 function App() {
 
   const { auth } = useContext(AuthContext)
 
   return (
-    <Router>
-      {auth ? <><PrivateRoutes /></> : <><Header /><PublicRoutes /></>}
-    </Router>
+    <>
+      <Router>
+        {auth ? <><PrivateRoutes /></> : <><Header /><PublicRoutes /></>}
+      </Router>
+      <ToastContainer />
+    </>
   )
 }
 

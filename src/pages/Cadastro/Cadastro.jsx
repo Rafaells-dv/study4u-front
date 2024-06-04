@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { Input } from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { Form } from "./style";
+import { toast } from "react-toastify";
 
 function Cadastro() {
 
     const navigate = useNavigate();
     
-    const [form, setForm] = useState({name: '', email: '', password: ''});    
+    const [form, setForm] = useState({});    
     
     function handleChange(e) {
         setForm({...form, [e.target.name]: e.target.value});
@@ -27,9 +28,11 @@ function Cadastro() {
         })
 
         if (request.status >= 200 && request.status <= 299) {
-            alert("usuário criado com sucesso")
+            toast.success("Usuário cadastrado com sucesso!")
             navigate("/login")
             return
+          } else {
+            toast.error("Erro ao cadastrar usuário!")
           }
         
         }

@@ -9,6 +9,7 @@ import { Conteudos, Options, SalaContainer } from "./style.js";
 import { UserContext } from "../../contexts/UserContext.jsx";
 import ConfirmDelete from "../../components/ConfirmDelete/ConfirmDelete.jsx";
 import DeleteButton from "../../components/DeleteButton/DeleteButton.jsx";
+import { toast } from "react-toastify";
 
 function Sala() {
     
@@ -66,7 +67,7 @@ function Sala() {
             setConteudos(conteudoList);
 
         } else {
-            console.log('Erro ao criar sala:', response.statusText);
+            console.log('Erro ao pegar conteudos:', response.statusText);
         }
 
     }
@@ -91,8 +92,10 @@ function Sala() {
 
         if (requestDeleteSala.ok) {
             setShowConfirmDeleteSala(false)
+            toast.success("Sala deletada com sucesso!")
             navigate("/home")
         } else(error) => {
+            toast.error("Erro ao deletar sala!")
             console.log(error)
         }   
     }
@@ -116,8 +119,10 @@ function Sala() {
 
         if (requestExitClass.ok) {
             setShowConfirmExitSala(false)
+            toast.success("Saiu da sala com sucesso!")
             navigate("/home")
         } else(error) => {
+            toast.error("Erro ao sair da sala!")
             console.log(error)
         }
     }
@@ -140,11 +145,12 @@ function Sala() {
         })
         
         if (request.ok) {
-            const data = await request.json()
-            console.log(data)
+            toast.success("Conteúdo adicionado com sucesso!")
             getConteudos()
-        } else
-        (error) => console.log(error)
+        } else(error) => {
+            toast.error("Erro ao adicionar conteúdo!")
+            console.log(error)
+        }
         
         setShowFormAddConteudo(false)
     }
@@ -171,6 +177,7 @@ function Sala() {
         
         if (resquestDeleteConteudo.ok) {
             getConteudos()
+            toast.success("Conteúdo deletado com sucesso!")
             setShowConfirmDeleteConteudo(false)
         }
     }
