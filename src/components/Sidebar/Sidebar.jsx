@@ -3,6 +3,7 @@ import NavButton from "../NavButton/NavButton";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import { Nav } from "./style";
+import { toast } from "react-toastify";
 
 function Sidebar() {
 
@@ -25,6 +26,7 @@ function Sidebar() {
             "email": localStorage.getItem("email"),
         })
 
+        toast.success("Logout realizado com sucesso!")
         navigate("/")
     }
 

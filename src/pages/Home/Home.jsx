@@ -9,6 +9,7 @@ import { Container } from "../../components/Container/Container.jsx";
 import { Input } from "../../components/Input/Input.jsx";
 import { GrupoSalas, HomeContainer, HomeInputs, SalasNotFound } from "./style.js";
 import DynamicForm from "../../components/DynamicForm/DynamicForm.jsx";
+import { toast } from "react-toastify";
 
 function Home() {
 
@@ -79,8 +80,10 @@ function Home() {
 
         if (requestEnterClass.ok) {
             getSalas()
+            toast.success("Entrou na sala com sucesso!")
             setShowFormNewClass(false)
         } else(error) => {
+            toast.error("Erro ao entrar na sala!")
             console.log(error)
         }
     }

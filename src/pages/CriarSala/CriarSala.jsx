@@ -7,6 +7,7 @@ import Button from "../../components/Button/Button.jsx";
 import { Form, FormContainer } from "./style.js";
 import { Container } from "../../components/Container/Container.jsx";
 import { TextArea } from "../../components/TextArea/TextArea.jsx";	
+import { toast } from "react-toastify";
 
 function CriarSala() {
 
@@ -41,10 +42,11 @@ function CriarSala() {
             
                 if (request.ok) {
                     const createdClass = await request.json(); // Transforma a resposta em JSON
-
+                    toast.success("Sala criada com sucesso!")
                     navigate(`/sala/${createdClass.id}`)
                     
                 } else {  
+                    toast.error("Erro ao criar sala!")
                     console.error('Erro ao criar sala:', response.statusText);
                 }
         } catch(error) {
