@@ -29,6 +29,12 @@ function Login() {
      //lidar com formulario enviado
     const handleLogin = async (event) => {
          event.preventDefault();
+
+         if (!form.email || !form.password) {
+            toast.error("Preencha todos os campos!")
+            return
+        }
+
          try { 
              //resquisição de login
              const request = await fetch('http://localhost:8080/auth/login', {
@@ -43,7 +49,7 @@ function Login() {
              if (request.ok) {
                  const response = await request.json(); // Transforma a resposta em JSON
                  console.log(response)
- 
+
                  if (response.token == "Acesso negado") {
  
                     console.log("email ou senha incorretos")

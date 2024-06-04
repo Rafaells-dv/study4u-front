@@ -24,8 +24,11 @@ function CriarSala() {
     
     const createTurma = async (event) => {
         event.preventDefault();
-        console.log(form)
-        console.log(localStorage.getItem('token'))
+        
+        if (!form.tituloSala || !form.descricaoSala) {
+            toast.error("Preencha todos os campos!")
+            return
+        }
 
         try{
             const request = await fetch(`http://localhost:8080/turmas?id=` + user.id, {
