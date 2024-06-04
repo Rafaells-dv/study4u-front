@@ -132,6 +132,11 @@ function Sala() {
     async function handleAddConteudo(event) {
         event.preventDefault()
         
+        if (!form.tituloConteudo || !form.descricaoConteudo) {
+            toast.error("Preencha todos os campos!")
+            return
+        }
+
         const request = await fetch(`http://localhost:8080/conteudos?idTurma=${id}`, {
             method: "POST",
             headers: {

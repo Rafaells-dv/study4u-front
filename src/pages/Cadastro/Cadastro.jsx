@@ -17,6 +17,12 @@ function Cadastro() {
     
     const createUser = async (event) => {
         event.preventDefault()
+
+        if (!form.email || !form.name || !form.password) {
+            toast.error("Preencha todos os campos!")
+            return
+        }
+        
         const request = await fetch('http://localhost:8080/usuarios', {
             method: "POST",
             headers: { "Content-Type": "application/json" },

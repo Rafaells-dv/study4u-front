@@ -70,6 +70,12 @@ function Home() {
         event.preventDefault()
         console.log("entrar")
         console.log(form.codigoSala)
+
+        if (!form.codigoSala) {
+            toast.error("Preencha o campo de código da sala!")
+            return
+        }
+        
         const requestEnterClass = await fetch(`http://localhost:8080/turmas/${form.codigoSala}/atribuir-usuario?usuarioId=${user.id}`, {
             method: 'PUT',
             headers: {
