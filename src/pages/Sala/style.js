@@ -10,7 +10,11 @@ export const SalaContainer = styled.div`
 
     article {
         padding-left: 10rem;
+        padding-right: 10rem;
         padding-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     h1 {
@@ -20,6 +24,15 @@ export const SalaContainer = styled.div`
     p {
         color: var(--dark-blue-2);
         font-size: 1.3rem;
+    }
+
+    .detail-line {
+        display: flex;
+    }
+
+    .detail-line > :first-child {
+        color: var(--dark-blue-3) !important;
+        margin-right: 1rem;
     }
 `;
 
