@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import './App.css';
 import Header from './components/Header/Header';
 import { BrowserRouter as Router } from 'react-router-dom';
 import PublicRoutes  from './routes/PublicRoutes';
