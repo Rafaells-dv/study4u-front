@@ -298,8 +298,20 @@ function Sala() {
                 )}
                 <SalaContainer>
                     <article>
-                        <h1 className="title">{classDetail.titulo}</h1>
-                        <p className="text" id="desc-sala">{classDetail.descricao}</p>
+                        <div>
+                            <h1 className="title">{classDetail.titulo}</h1>
+                            <p className="text" id="desc-sala">{classDetail.descricao}</p>
+                        </div>
+                        <div>
+                            <div className="detail-line">
+                                <p className="text">Criador: </p>
+                                <p className="text">{classDetail.criador?.nome}</p>
+                            </div>
+                            <div className="detail-line">
+                                <p className="text">Codigo da sala:</p>
+                                <p className="text">{classDetail.id}</p>
+                            </div>
+                        </div>
                     </article>
                     <Conteudos>
                         {conteudos.map((conteudo) => (   
