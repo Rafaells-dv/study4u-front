@@ -26,6 +26,10 @@ export const HomeInputs = styled.div`
         height: 70%;
         align-self: center;
     }
+
+    button {
+        font-family: "Josefin Sans", sans serif;
+    }
 `;
 
 export const GrupoSalas = styled.div`

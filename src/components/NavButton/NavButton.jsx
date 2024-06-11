@@ -8,6 +8,7 @@ const NavButton = styled.button`
     color: var(--blue-light);
     cursor: pointer;
     font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
 
     &:hover {
         background-color: #C5D5EA;

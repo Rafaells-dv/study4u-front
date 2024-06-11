@@ -9,6 +9,8 @@ const Button = styled.button`
     border: 0 solid none;
     border-style: none;
     cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: "Josefin Sans", Sans Serif;
 
     &:hover {
         background-color: var(--dark-blue-3);
