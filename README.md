@@ -1,8 +1,43 @@
-# React + Vite
+# Study4u Front-end
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Front-end of the sudy4u project, a website to create classes and share content.
 
-Currently, two official plugins are available:
+The backend project can be found [here](https://github.com/GabrielAntonioVeiga/study4u-back)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Technologies and Dependencies Used
+
+- React.js
+- Node.js
+- HTML5
+- CSS3
+- JavaScript
+- Vite
+
+## Installation and running
+
+### Requirements
+- NodeJs installed
+- Npm installed
+- Vite installed
+
+### How to run
+- Create a folder for the project
+- Clone the project in the created folder with: git clone https://github.com/Rafaells-dv/study4u-front.git
+
+```
+$ git clone https://github.com/Rafaells-dv/study4u-front.git
+```
+
+- Open the project with your IDE (VSCode preferably)
+- Run "npm i" in the console
+
+```
+$ npm i
+```
+
+- Run "npm run dev" in the console to start the aplication
+
+```
+$ npm run dev
+```
